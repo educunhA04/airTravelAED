@@ -10,4 +10,6 @@ add_executable(AirtravelAED main.cpp
         Classes/airlines.h
         Classes/airport.cpp
         Classes/airlines.cpp
+        Classes/read.cpp
+        Classes/read.h
 )

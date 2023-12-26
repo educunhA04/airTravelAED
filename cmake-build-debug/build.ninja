@@ -67,6 +67,12 @@ build CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o: CXX_COMPILER__Airtrave
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
 
+build CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/Classes/read.cpp || cmake_object_order_depends_target_AirtravelAED
+  DEP_FILE = CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/AirtravelAED.dir
+  OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target AirtravelAED
@@ -75,7 +81,7 @@ build CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o: CXX_COMPILER__Airtrave
 #############################################
 # Link the executable AirtravelAED
 
-build AirtravelAED: CXX_EXECUTABLE_LINKER__AirtravelAED_Debug CMakeFiles/AirtravelAED.dir/main.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o
+build AirtravelAED: CXX_EXECUTABLE_LINKER__AirtravelAED_Debug CMakeFiles/AirtravelAED.dir/main.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   POST_BUILD = :
