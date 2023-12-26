@@ -1,6 +1,4 @@
-/*
- * Graph.h
- */
+
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
@@ -88,13 +86,9 @@ public:
     bool addEdge(const T &sourc, const T &dest, double w);
     bool removeEdge(const T &sourc, const T &dest);
     vector<Vertex<T> * > getVertexSet() const;
-    vector<T> dfs() const;
-    vector<T> dfs(const T & source) const;
-    vector<T> bfs(const T &source) const;
-    vector<T> topsort() const;
+
 };
 
-/****************** Provided constructors and functions ********************/
 
 template <class T>
 Vertex<T>::Vertex(T in): info(in) {}
@@ -301,91 +295,5 @@ bool Graph<T>::removeVertex(const T &in) {
     return false;
 }
 
-
-/****************** DFS ********************/
-/*
- * Performs a depth-first search (dfs) traversal in a graph (this).
- * Returns a vector with the contents of the vertices by dfs order.
- * Follows the algorithm described in theoretical classes.
- */
-template <class T>
-vector<T> Graph<T>::dfs() const {
-    vector<T> res;
-    for (auto v : vertexSet)
-        v->visited = false;
-    for (auto v : vertexSet)
-        if (! v->visited)
-            dfsVisit(v, res);
-    return res;
-}
-
-/*
- * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
- * Updates a parameter with the list of visited node contents.
- */
-template <class T>
-void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
-    v->visited = true;
-    res.push_back(v->info);
-    for (auto & e : v->adj) {
-        auto w = e.dest;
-        if ( ! w->visited)
-            dfsVisit(w, res);
-    }
-}
-
-
-/****************** DFS ********************/
-/*
- * Performs a depth-first search (dfs) in a graph (this).
- * Returns a vector with the contents of the vertices by dfs order,
- * from the source node.
- */
-template <class T>
-vector<T> Graph<T>::dfs(const T & source) const {
-    vector<T> res;
-    auto s = findVertex(source);
-    if (s == nullptr)
-        return res;
-
-    for (auto v : vertexSet)
-        v->visited = false;
-
-    dfsVisit(s, res);
-    return res;
-}
-
-
-/****************** BFS ********************/
-/*
- * Performs a breadth-first search (bfs) in a graph (this), starting
- * from the vertex with the given source contents (source).
- * Returns a vector with the contents of the vertices by bfs order.
- */
-template <class T>
-vector<T> Graph<T>::bfs(const T & source) const {
-    vector<T> res;
-    auto s = findVertex(source);
-    if (s == NULL)
-        return res;
-    queue<Vertex<T> *> q;
-    for (auto v : vertexSet)
-        v->visited = false;
-    q.push(s);
-    s->visited = true;
-    while (!q.empty()) {
-        auto v = q.front();
-        q.pop();
-        res.push_back(v->info);
-        for (auto & e : v->adj) {
-            auto w = e.dest;
-            if ( ! w->visited ) {
-                q.push(w);
-                w->visited = true;
-            }
-        }
-    }
-    return res;
-}
 
 #endif /* GRAPH_H_ */
