@@ -25,7 +25,7 @@ class Vertex {
     int low;               // auxiliary field
 
     void addEdge(Vertex<T> *dest, double w);
-    void addEdgeAirlines(Vertex<T> *dest, double w, Airlines a);
+
     bool removeEdgeTo(Vertex<T> *d);
 
 public:
@@ -52,6 +52,8 @@ public:
     void setLow(int low);
 
     friend class Graph<T>;
+
+    void addEdgeAirlines(Vertex<T> *dest, double w, Airlines a);
 };
 
 
@@ -61,7 +63,6 @@ class Edge {
     double weight;         // edge weight
     Airlines airline;      // airline responsible for the flight
 public:
-    // Edge(Vertex<T> *d, double w);
     Edge(Vertex<T> *d, double w, Airlines a);
     Vertex<T> *getDest() const;
     void setDest(Vertex<T> *dest);

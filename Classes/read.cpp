@@ -116,13 +116,6 @@ void Reader::readFlights() {
         }
 
         double distance; //= calculateDistance(first, second); -> CALCULA DISTANCIA ENTRE AEROPORTOS
-
-        for(auto v : graph.getVertexSet()){
-            if(v->getInfo() == first){
-                auto adj = v->getAdj();
-                adj.push_back(Edge(second, distance, airline));
-            }
-        }
     }
     file.close();
 }
