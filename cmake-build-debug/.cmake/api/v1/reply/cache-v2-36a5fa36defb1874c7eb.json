@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/eduardo/Desktop/AirtravelAED/cmake-build-debug"
+			"value" : "/home/gg2003/Desktop/AEDPROJ2/cmake-build-debug"
 		},
 		{
 			"name" : "AirtravelAED_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/eduardo/Desktop/AirtravelAED"
+			"value" : "/home/gg2003/Desktop/AEDPROJ2"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/eduardo/Desktop/AirtravelAED/cmake-build-debug"
+			"value" : "/home/gg2003/Desktop/AEDPROJ2/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -579,7 +579,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/eduardo/Desktop/AirtravelAED/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/gg2003/Desktop/AEDPROJ2/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -639,7 +639,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/eduardo/Desktop/AirtravelAED"
+			"value" : "/home/gg2003/Desktop/AEDPROJ2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",

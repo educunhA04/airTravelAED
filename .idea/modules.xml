@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/AirtravelAED.iml" filepath="$PROJECT_DIR$/.idea/AirtravelAED.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/AEDPROJ2.iml" filepath="$PROJECT_DIR$/.idea/AEDPROJ2.iml" />
+>>>>>>> 2c90c67 (readers)
     </modules>
   </component>
 </project>
