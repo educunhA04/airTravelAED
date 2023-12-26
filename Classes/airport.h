@@ -22,5 +22,6 @@ public:
     string getCountry();
     double getLatitude();
     double getLongitude();
+    bool operator <(const Airport &a) const;
 };
 #endif //AIRTRAVELAED_AIRPORT_H

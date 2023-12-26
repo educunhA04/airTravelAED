@@ -1,4 +1,3 @@
-
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
@@ -13,9 +12,6 @@ using namespace std;
 template <class T> class Edge;
 template <class T> class Graph;
 template <class T> class Vertex;
-
-
-/****************** Provided structures  ********************/
 
 template <class T>
 class Vertex {
@@ -86,7 +82,6 @@ public:
     bool addEdge(const T &sourc, const T &dest, double w);
     bool removeEdge(const T &sourc, const T &dest);
     vector<Vertex<T> * > getVertexSet() const;
-
 };
 
 
@@ -208,7 +203,6 @@ void Vertex<T>::setAdj(const vector<Edge<T>> &adj) {
     Vertex::adj = adj;
 }
 
-
 /*
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
@@ -220,7 +214,6 @@ bool Graph<T>::addVertex(const T &in) {
     vertexSet.push_back(new Vertex<T>(in));
     return true;
 }
-
 
 /*
  * Adds an edge to a graph (this), given the contents of the source and

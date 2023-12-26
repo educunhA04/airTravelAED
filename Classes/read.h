@@ -4,6 +4,7 @@
 #include "airlines.h"
 #include "airport.h"
 #include "Graph.h"
+#include <set>
 
 using namespace std;
 
@@ -12,5 +13,12 @@ public:
     Reader();
 
 private:
+    void readAirlines();
+    void readAirports();
+    void readFlights();
+
+    set<Airport> airports;
+    set<Airlines> airlines;
+    Graph<Airport> graph;
 };
 #endif //AIRTRAVELAED_READ_H

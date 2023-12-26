@@ -10,11 +10,14 @@ private:
     string name;
     string callSign;
     string country;
+
 public:
     Airlines(string code, string name, string callSign, string country);
     string getCode();
     string getName();
     string getCall();
     string getCountry();
+    explicit Airlines(string code);
+    bool operator <(const Airlines &a) const;
 };
 #endif //AIRTRAVELAED_AIRLINES_H
