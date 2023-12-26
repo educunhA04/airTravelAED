@@ -8,4 +8,5 @@ add_executable(AirtravelAED main.cpp
         Classes/Graph.h
         Classes/airport.h
         Classes/airport.h
+        Classes/airport.h
         Classes/airport.h)
