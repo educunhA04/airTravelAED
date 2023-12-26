@@ -63,8 +63,10 @@ void Reader::readAirports() {
         getline(iss, number2, ','); longitude = stod(number2);
 
         Airport new_airport = Airport(code,name,city,country,latitude,longitude);
+        graph.addVertex(new_airport);
         airports.insert(new_airport);
     }
+
     file.close();
 }
 
@@ -74,18 +76,53 @@ void Reader::readFlights() {
 
     string source;
     string target;
-    string airline;
+    string airlineCode;
 
     file.open("../Data/flights.csv");
     getline(file,current); // ignore first line //
 
-    while (getline(file,current)){
+    while (getline(file,current)) {
         istringstream iss(current);
         getline(iss, source, ',');
         getline(iss, target, ',');
-        getline(iss, airline, ',');
+        getline(iss, airlineCode, ',');
 
+        Airport first;
+        Airport second;
+        Airlines airline;
 
+        auto it = airports.begin(); int count = 0;
+        while(it != airports.end() && count != 2){
+            auto currentAP = *it;
+            if (currentAP.getCode() == source){
+                first = currentAP;
+                count++;
+            }
+            if (currentAP.getCode() == target){
+                second = currentAP;
+                count++;
+            }
+            it++;
+        }
+
+        auto it2 = airlines.begin();
+        while(it2 != airlines.end()){
+            auto currentAirline = *it2;
+            if(currentAirline.getCode() == airlineCode){
+                airline = currentAirline;
+                break;
+            }
+            it++;
+        }
+
+        double distance; //= calculateDistance(first, second); -> CALCULA DISTANCIA ENTRE AEROPORTOS
+
+        for(auto v : graph.getVertexSet()){
+            if(v->getInfo() == first){
+                auto adj = v->getAdj();
+                adj.push_back(Edge(second, distance, airline));
+            }
+        }
     }
     file.close();
 }

@@ -11,7 +11,6 @@ using namespace std;
 class Reader {
 public:
     Reader();
-
 private:
     void readAirlines();
     void readAirports();
@@ -19,6 +18,8 @@ private:
 
     set<Airport> airports;
     set<Airlines> airlines;
+
     Graph<Airport> graph;
 };
+
 #endif //AIRTRAVELAED_READ_H

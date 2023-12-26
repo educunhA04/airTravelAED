@@ -15,3 +15,5 @@ string Airlines::getCode() {return code;}
 string Airlines::getCall() {return callSign;}
 
 bool Airlines::operator< (const Airlines &a) const {return code < a.code;}
+
+Airlines::Airlines() = default;

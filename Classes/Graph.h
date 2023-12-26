@@ -2,6 +2,7 @@
 #define GRAPH_H_
 
 #include <cstddef>
+#include <utility>
 #include <vector>
 #include <queue>
 #include <stack>
@@ -24,7 +25,9 @@ class Vertex {
     int low;               // auxiliary field
 
     void addEdge(Vertex<T> *dest, double w);
+    void addEdgeAirlines(Vertex<T> *dest, double w, Airlines a);
     bool removeEdgeTo(Vertex<T> *d);
+
 public:
     Vertex(T in);
     T getInfo() const;
@@ -51,12 +54,15 @@ public:
     friend class Graph<T>;
 };
 
+
 template <class T>
 class Edge {
     Vertex<T> * dest;      // destination vertex
     double weight;         // edge weight
+    Airlines airline;      // airline responsible for the flight
 public:
-    Edge(Vertex<T> *d, double w);
+    // Edge(Vertex<T> *d, double w);
+    Edge(Vertex<T> *d, double w, Airlines a);
     Vertex<T> *getDest() const;
     void setDest(Vertex<T> *dest);
     double getWeight() const;
@@ -67,10 +73,10 @@ public:
 
 template <class T>
 class Graph {
-    vector<Vertex<T> *> vertexSet;      // vertex set
-    int _index_;                        // auxiliary field
-    stack<Vertex<T>> _stack_;           // auxiliary field
-    list<list<T>> _list_sccs_;        // auxiliary field
+    vector<Vertex<T> *> vertexSet; // vertex set
+    int _index_;                   // auxiliary field
+    stack<Vertex<T>> _stack_;      // auxiliary field
+    list<list<T>> _list_sccs_;     // auxiliary field
 
     void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
     bool dfsIsDAG(Vertex<T> *v) const;
@@ -84,13 +90,13 @@ public:
     vector<Vertex<T> * > getVertexSet() const;
 };
 
-
 template <class T>
 Vertex<T>::Vertex(T in): info(in) {}
 
-template <class T>
-Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
-
+// template <class T>
+// Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
+template<class T>
+Edge<T>::Edge(Vertex<T> *d, double w, Airlines a): dest(d), weight(w), airline(std::move(a)) {}
 
 template <class T>
 int Graph<T>::getNumVertex() const {
@@ -238,7 +244,10 @@ template <class T>
 void Vertex<T>::addEdge(Vertex<T> *d, double w) {
     adj.push_back(Edge<T>(d, w));
 }
-
+template<class T>
+void Vertex<T>::addEdgeAirlines(Vertex<T> *dest, double w, Airlines a) {
+    adj.push_back(Edge<T>(dest,w,a));
+}
 
 /*
  * Removes an edge from a graph (this).

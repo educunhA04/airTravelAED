@@ -13,6 +13,7 @@ private:
 
 public:
     Airlines(string code, string name, string callSign, string country);
+    Airlines();
     string getCode();
     string getName();
     string getCall();

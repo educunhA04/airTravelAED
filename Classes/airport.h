@@ -11,17 +11,19 @@ private:
     string name;
     string city;
     string country;
-    double latitude;
-    double longitude;
+    double latitude{};
+    double longitude{};
 
 public:
     Airport(string, string, string, string, double, double);
+    Airport();
     string getCode();
     string getName();
     string getCity();
     string getCountry();
     double getLatitude();
     double getLongitude();
-    bool operator <(const Airport &a) const;
+    bool operator<(const Airport &a) const;
+    bool operator==(const Airport &a) const;
 };
 #endif //AIRTRAVELAED_AIRPORT_H

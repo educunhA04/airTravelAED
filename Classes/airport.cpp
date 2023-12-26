@@ -33,3 +33,8 @@ double Airport::getLongitude() {
 bool Airport::operator<(const Airport &a) const {
     return code < a.code;
 }
+bool Airport::operator==(const Airport &a) const {
+    return code == a.code;
+}
+
+Airport::Airport() = default;
