@@ -16,10 +16,9 @@ private:
     void readAirports();
     void readFlights();
 
-    set<Airport> airports;
-    set<Airlines> airlines;
-
-    Graph<Airport> graph;
+    set<Airport> airports;   /// set with the airports and their info (from airports.csv)
+    set<Airlines> airlines; /// set with the airlines and their info (from airlines.csv)
+    Graph<Airport> graph;  /// graph of flights between airports
 };
 
 #endif //AIRTRAVELAED_READ_H

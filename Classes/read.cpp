@@ -1,6 +1,26 @@
 #include <fstream>
 #include <sstream>
 #include "read.h"
+#include <cmath>
+
+/**
+ * Calculates de distance between two airports a and b
+ * @param a - first airport
+ * @param b - second airport (order doesnt matter // distance is the same)
+ * @return distance between airport a and airport b;
+ */
+double calculateDistance(Airport a, Airport b) {
+    double dif_Lat = (b.getLatitude() - a.getLatitude()) * M_PI / 180.0;
+    double dif_Lon = (b.getLongitude() - a.getLongitude()) * M_PI / 180.0;
+
+    double x = pow(sin(dif_Lat / 2), 2) + pow(sin(dif_Lon / 2), 2);
+    double y = x * cos(a.getLatitude() * M_PI / 180.0) * cos(b.getLatitude() * M_PI / 180.0);
+
+    double radius = 6371;
+    double z = 2 * asin(sqrt(y));
+
+    return radius * z;
+}
 
 Reader::Reader() {
     readAirlines();
@@ -8,6 +28,10 @@ Reader::Reader() {
     readFlights();
 }
 
+/**
+ * Function that reads the file airlines.csv
+ * inserts each Airline (code, name, callsign and country) in a set
+ */
 void Reader::readAirlines() {
     ifstream file;
 
@@ -34,7 +58,12 @@ void Reader::readAirlines() {
     }
     file.close();
 }
-
+/**
+ * Function that reads the file airports.csv
+ * Creates an airport with its code, name, city, country and coordinates
+ * Adds a new vertex with the airport to the graph of airports
+ * Also inserts the airport in a set of airports
+ */
 void Reader::readAirports() {
     ifstream file;
 
@@ -66,10 +95,13 @@ void Reader::readAirports() {
         graph.addVertex(new_airport);
         airports.insert(new_airport);
     }
-
     file.close();
 }
-
+/**
+ * This function reads the file flights.csv
+ * For each line of the file, adds to the Vertex of the graph corresponding to the source of the flight an edge with the
+ * destination, the distance between the two airports, and the airline responsible for the flight
+ */
 void Reader::readFlights() {
     ifstream file;
     string current;
@@ -105,8 +137,10 @@ void Reader::readFlights() {
             it++;
         }
 
+        double distance = calculateDistance(first, second);
+
         auto it2 = airlines.begin();
-        while(it2 != airlines.end()){
+        while(it2 != airlines.end()) {
             auto currentAirline = *it2;
             if(currentAirline.getCode() == airlineCode){
                 airline = currentAirline;
@@ -115,7 +149,7 @@ void Reader::readFlights() {
             it++;
         }
 
-        double distance; //= calculateDistance(first, second); -> CALCULA DISTANCIA ENTRE AEROPORTOS
+        graph.addEdgeAirlines(graph.findVertex(first)->getInfo(), graph.findVertex(second)->getInfo(),distance, airline);
     }
     file.close();
 }
