@@ -3,8 +3,13 @@
 
 using namespace std;
 
+
+Menu::Menu() {
+    cout << "----------------------------------------------" << "\n\n";
+    cout << "Hello! Welcome to our flight management system!" << "\n\n";
+    reader = new Reader();
+}
 void Menu::init() {
-    cout << "# Welcome to the Air Travel Flight Management System! #" << endl;
     string inp;
     while(true) {
         cout << "Select an option: " << "\n\n"
@@ -24,12 +29,9 @@ void Menu::init() {
     }
 }
 
-Menu::Menu() {
-    init();
-}
 
 void Menu::numAirports() {
-    auto x = airports.size();
+    auto x = reader->getAirports().size();
     cout << "There are " << x << " airports!" << endl;
     statistics();
 }
