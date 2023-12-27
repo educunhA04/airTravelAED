@@ -20,16 +20,16 @@ private:
 
     void numAirports(); // DONE
     void airportTrafMax(); // DONE
-    void importantAirport();
+    void importantAirport(); // TODO ARTICULATION POINTS
 
 
     //specific airport statistics//
     void specificAirport();
 
-    void numDest(Airport airport);
-    void airportsDest(Airport airport);
-    void citiesDest(Airport airport);
-    void countriesdest(Airport airport);
+    void numDest(); // DONE
+    void airportsDest(); // DONE
+    void citiesDest();
+    void countriesdest();
 
 
     //Flights//
