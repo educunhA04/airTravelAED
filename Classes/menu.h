@@ -6,20 +6,20 @@
 class Menu {
 private:
     //info menu//
-    void information();
-    void showAirports();
-    void showAirlines();
+    void information(); // DONE
+    void showAirports(); // DONE
+    void showAirlines(); // DONE
 
 
     //statistics menu//
-    void statistics();
+    void statistics(); // DONE
 
 
     //airports//
-    void airportsStat();
+    void airportsStat(); // DONE
 
-    void numAirports();
-    void airportTrafMax();
+    void numAirports(); // DONE
+    void airportTrafMax(); // DONE
     void importantAirport();
 
 

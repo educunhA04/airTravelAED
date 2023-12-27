@@ -29,6 +29,25 @@ void Menu::init() {
     }
 }
 
+void Menu::airportTrafMax() { // airport with the biggest number of flights (also the count of flights) //
+    Airport result;
+    int count = 0;
+
+    for(auto v : reader->getGraph().getVertexSet()){
+        if(v->getAdj().size() > count){
+            count = v->getAdj().size();
+            result = v->getInfo();
+        }
+    }
+    auto x = result.getName();
+    auto y = result.getCode();
+    auto a = result.getCountry();
+    auto b = result.getCity();
+    cout << "\nThe airport with the biggest number of flights is " << x << " (Code: "<< y << ") "
+         << "located in: " << b << ", " << a << " with " << count << " flights." << endl;
+    airportsStat();
+}
+
 void Menu::information() {
     string inp;
     while (true) {
@@ -49,13 +68,13 @@ void Menu::information() {
             init();
         }
         else {
-            cout << "\n Insert a valid input. \n\n";
+            cout << "\nInsert a valid input. \n\n";
             cin.clear();
         }
     }
 }
 void Menu::showAirports() {
-    cout << "Now showing all airports:" << endl;
+    cout << "\nNow showing all airports:" << endl;
     for (auto i : reader->getAirports()) {
         cout << "/ Code: " << i.getCode() << " / "
              << "Name: "<< i.getName() << " / "
@@ -64,7 +83,7 @@ void Menu::showAirports() {
     }
 }
 void Menu::showAirlines() {
-    cout << "Now showing all airlines" << endl;
+    cout << "\nNow showing all airlines" << endl;
     for (auto i : reader->getAirlines()) {
         cout << "/ Code: " << i.getCode() << " / "
              << "Name: " << i.getName() << " / "
@@ -111,11 +130,11 @@ void Menu::airportsStat() {
         cin >> inp;
 
         if(inp == "1") numAirports();
-        // if(inp == "2") airportTrafMax();
+        if(inp == "2") airportTrafMax();
         // if(inp == "3") importantAirport();
         if (inp == "B" or inp == "b") statistics();
         else {
-            cout << "\n Insert a valid input. \n\n";
+            cout << "\nInsert a valid input. \n\n";
             cin.clear();
         }
     }
@@ -123,7 +142,7 @@ void Menu::airportsStat() {
 
 void Menu::numAirports() {
     auto x = reader->getAirports().size();
-    cout << "There are " << x << " airports!" << endl;
+    cout << "\nThere are " << x << " airports!" << endl;
     statistics();
 }
 
