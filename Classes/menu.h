@@ -5,21 +5,26 @@
 
 class Menu {
 private:
-    //statistics menu//
+    //info menu//
+    void information();
+    void showAirports();
+    void showAirlines();
 
+
+    //statistics menu//
     void statistics();
 
 
     //airports//
-
     void airportsStat();
+
     void numAirports();
     void airportTrafMax();
     void importantAirport();
-    void specificAirport();
 
 
     //specific airport statistics//
+    void specificAirport();
 
     void numDest(Airport airport);
     void airportsDest(Airport airport);
@@ -28,6 +33,7 @@ private:
 
 
     //Flights//
+    void flights();
 
     void numFlights();
     void numFlightsSrc();
@@ -40,19 +46,17 @@ private:
     //Reachable country//
 
     void reachable();
+
     void reachableAirport(Airport airport);
     void reachableAirlines(Airlines airlines);
     void reachableCity(); //TODO
     void reachableCountry(); //TODO
 
 
-    //info menu//
-
-    void info();
-    void showAirports();
-    void showAirlines();
-
     Reader* reader;
+    vector<string> src;
+    vector<string> dest;
+
 public:
     Menu();
     void init();

@@ -162,3 +162,7 @@ set<Airport> const& Reader::getAirports() const {
 set<Airlines> const& Reader::getAirlines() const {
     return airlines;
 }
+
+Graph<Airport> const &Reader::getGraph() const {
+    return graph;
+}
