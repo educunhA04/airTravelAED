@@ -3,12 +3,6 @@
 
 using namespace std;
 
-Menu::Menu() {
-    cout << "-----------------" << endl;
-    cout << "Olá!!" << endl;
-    reader = new Reader();
-}
-
 void Menu::init() {
     string inp;
     cout << "Insert 1" << endl;
@@ -19,9 +13,23 @@ void Menu::init() {
     }
 }
 
+Menu::Menu() {
+    cout << "-----------------" << endl;
+    cout << "Olá!!" << endl;
+    reader = new Reader();
+}
+
 void Menu::showAirports() {
+    cout << "Now showing all airports:" << endl;
     for (auto i : reader->getAirports()) {
-        cout << i.getName() << endl;
+        cout << "Name: " << i.getName() << "| Code: "<< i.getCode() << endl;
+    }
+}
+
+void Menu::showAirlines() {
+    cout << "Now showing all airlines" << endl;
+    for(auto a : reader->getAirlines()){
+        cout << "Name: " << a.getName() << "| Code: " << a.getCode() << endl;
     }
 }
 
