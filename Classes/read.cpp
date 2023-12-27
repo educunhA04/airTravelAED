@@ -42,7 +42,7 @@ void Reader::readAirlines() {
     string country;
 
     string current;
-    file.open("..data/airlines.csv");
+    file.open("../Data/airlines.csv");
 
     getline(file, current); // ignore first line
 
@@ -54,7 +54,7 @@ void Reader::readAirlines() {
         getline(iss, callsign, ',');
         getline(iss, country, ',');
 
-        Airlines new_airline = Airlines(code);
+        Airlines new_airline = Airlines(code, name, callsign, country);
         airlines.insert(new_airline);
     }
     file.close();
