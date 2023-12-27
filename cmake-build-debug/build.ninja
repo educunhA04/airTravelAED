@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/gg2003/Desktop/AEDPROJ2/cmake-build-debug/
+cmake_ninja_workdir = /home/eduardo/Desktop/AirtravelAED/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target AirtravelAED
 
@@ -49,26 +49,32 @@ cmake_ninja_workdir = /home/gg2003/Desktop/AEDPROJ2/cmake-build-debug/
 
 build cmake_object_order_depends_target_AirtravelAED: phony || CMakeFiles/AirtravelAED.dir
 
-build CMakeFiles/AirtravelAED.dir/main.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/gg2003/Desktop/AEDPROJ2/main.cpp || cmake_object_order_depends_target_AirtravelAED
+build CMakeFiles/AirtravelAED.dir/main.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/main.cpp || cmake_object_order_depends_target_AirtravelAED
   DEP_FILE = CMakeFiles/AirtravelAED.dir/main.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir
 
-build CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/gg2003/Desktop/AEDPROJ2/Classes/airport.cpp || cmake_object_order_depends_target_AirtravelAED
+build CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/Classes/airport.cpp || cmake_object_order_depends_target_AirtravelAED
   DEP_FILE = CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
 
-build CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/gg2003/Desktop/AEDPROJ2/Classes/airlines.cpp || cmake_object_order_depends_target_AirtravelAED
+build CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/Classes/airlines.cpp || cmake_object_order_depends_target_AirtravelAED
   DEP_FILE = CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
 
-build CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/gg2003/Desktop/AEDPROJ2/Classes/read.cpp || cmake_object_order_depends_target_AirtravelAED
+build CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/Classes/read.cpp || cmake_object_order_depends_target_AirtravelAED
   DEP_FILE = CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/AirtravelAED.dir
+  OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
+
+build CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o: CXX_COMPILER__AirtravelAED_unscanned_Debug /home/eduardo/Desktop/AirtravelAED/Classes/menu.cpp || cmake_object_order_depends_target_AirtravelAED
+  DEP_FILE = CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   OBJECT_FILE_DIR = CMakeFiles/AirtravelAED.dir/Classes
@@ -81,7 +87,7 @@ build CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: CXX_COMPILER__AirtravelAED
 #############################################
 # Link the executable AirtravelAED
 
-build AirtravelAED: CXX_EXECUTABLE_LINKER__AirtravelAED_Debug CMakeFiles/AirtravelAED.dir/main.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o
+build AirtravelAED: CXX_EXECUTABLE_LINKER__AirtravelAED_Debug CMakeFiles/AirtravelAED.dir/main.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/AirtravelAED.dir
   POST_BUILD = :
@@ -94,7 +100,7 @@ build AirtravelAED: CXX_EXECUTABLE_LINKER__AirtravelAED_Debug CMakeFiles/Airtrav
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/gg2003/Desktop/AEDPROJ2/cmake-build-debug && /snap/clion/261/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/eduardo/Desktop/AirtravelAED/cmake-build-debug && /snap/clion/261/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -105,7 +111,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/gg2003/Desktop/AEDPROJ2/cmake-build-debug && /snap/clion/261/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/gg2003/Desktop/AEDPROJ2 -B/home/gg2003/Desktop/AEDPROJ2/cmake-build-debug
+  COMMAND = cd /home/eduardo/Desktop/AirtravelAED/cmake-build-debug && /snap/clion/261/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/eduardo/Desktop/AirtravelAED -B/home/eduardo/Desktop/AirtravelAED/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -121,7 +127,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/gg2003/Desktop/AEDPROJ2/cmake-build-debug
+# Folder: /home/eduardo/Desktop/AirtravelAED/cmake-build-debug
 
 build all: phony AirtravelAED
 
@@ -132,14 +138,14 @@ build all: phony AirtravelAED
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/gg2003/Desktop/AEDPROJ2/CMakeLists.txt /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/eduardo/Desktop/AirtravelAED/CMakeLists.txt /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/gg2003/Desktop/AEDPROJ2/CMakeLists.txt /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake: phony
+build /home/eduardo/Desktop/AirtravelAED/CMakeLists.txt /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-C.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-GNU.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux-Initialize.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/Linux.cmake /snap/clion/261/bin/cmake/linux/x64/share/cmake-3.27/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.27.8/CMakeCCompiler.cmake CMakeFiles/3.27.8/CMakeCXXCompiler.cmake CMakeFiles/3.27.8/CMakeSystem.cmake: phony
 
 
 #############################################
