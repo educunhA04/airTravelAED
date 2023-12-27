@@ -5,6 +5,12 @@
 
 class Menu {
 private:
+    //info menu//
+    void information();
+    void showAirports();
+    void showAirlines();
+
+
     //statistics menu//
     void statistics();
 
@@ -36,13 +42,10 @@ private:
     void reachableCountry(); //TODO
 
 
-    //info menu//
-    void info();
-    void showAirports();
-    void showAirlines();
-
 
     Reader* reader;
+    vector<string> src;
+    vector<string> dest;
 public:
     Menu();
     void init();
