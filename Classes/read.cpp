@@ -102,7 +102,7 @@ void Reader::readAirports() {
  * This function reads the file flights.csv
  * For each line of the file, adds to the Vertex of the graph corresponding to the source of the flight an edge with the
  * destination, the distance between the two airports, and the airline responsible for the flight
- */
+*/
 void Reader::readFlights() {
     ifstream file;
     string current;
