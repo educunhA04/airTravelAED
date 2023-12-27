@@ -29,17 +29,6 @@ Reader::Reader() {
     readAirports();
     readFlights();
 }
-
-set<Airport> const& Reader::getAirports() const {
-    return airports;
-}
-
-set<Airlines> const& Reader::getAirlines() const {
-    return airlines;
-}
-
-
-
 /**
  * Function that reads the file airlines.csv
  * inserts each Airline (code, name, callsign and country) in a set
@@ -164,4 +153,12 @@ void Reader::readFlights() {
         graph.addEdgeAirlines(graph.findVertex(first)->getInfo(), graph.findVertex(second)->getInfo(),distance, airline);
     }
     file.close();
+}
+
+set<Airport> const& Reader::getAirports() const {
+    return airports;
+}
+
+set<Airlines> const& Reader::getAirlines() const {
+    return airlines;
 }

@@ -42,7 +42,6 @@ private:
     void reachableCountry(); //TODO
 
 
-
     Reader* reader;
     vector<string> src;
     vector<string> dest;

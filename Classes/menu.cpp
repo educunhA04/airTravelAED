@@ -41,7 +41,7 @@ void Menu::init() {
 void Menu::information() {
     string inp;
     while(true) {
-        cout << "\n\n Which information do you want to consult?" << endl << "Select a valid option: " << "\n\n"
+        cout << "\n\n" << "Which information do you want to consult?" << endl << "Select a valid option: " << "\n\n"
              << "1 -> Airports list" << endl
              << "2 -> Airlines list" << endl
              << "B -> Back to the previous Menu \n\n"
@@ -87,5 +87,6 @@ void Menu::showAirlines() {
 
 void Menu::end() {
     cout << "----------------------------------------------"<< endl;
+
 }
 
