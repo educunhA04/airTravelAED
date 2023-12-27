@@ -11,6 +11,9 @@ using namespace std;
 class Reader {
 public:
     Reader();
+    set<Airport> const& getAirports() const;
+    set<Airlines> const& getAirlines() const;
+
 private:
     void readAirlines();
     void readAirports();

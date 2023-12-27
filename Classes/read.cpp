@@ -3,6 +3,8 @@
 #include "read.h"
 #include <cmath>
 
+using namespace std;
+
 /**
  * Calculates de distance between two airports a and b
  * @param a - first airport
@@ -27,7 +29,6 @@ Reader::Reader() {
     readAirports();
     readFlights();
 }
-
 /**
  * Function that reads the file airlines.csv
  * inserts each Airline (code, name, callsign and country) in a set
@@ -53,7 +54,7 @@ void Reader::readAirlines() {
         getline(iss, callsign, ',');
         getline(iss, country, ',');
 
-        Airlines new_airline = Airlines(code,name,callsign,country);
+        Airlines new_airline = Airlines(code);
         airlines.insert(new_airline);
     }
     file.close();
@@ -152,4 +153,12 @@ void Reader::readFlights() {
         graph.addEdgeAirlines(graph.findVertex(first)->getInfo(), graph.findVertex(second)->getInfo(),distance, airline);
     }
     file.close();
+}
+
+set<Airport> const& Reader::getAirports() const {
+    return airports;
+}
+
+set<Airlines> const& Reader::getAirlines() const {
+    return airlines;
 }
