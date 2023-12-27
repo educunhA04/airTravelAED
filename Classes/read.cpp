@@ -147,7 +147,7 @@ void Reader::readFlights() {
                 airline = currentAirline;
                 break;
             }
-            it++;
+            it2++;
         }
 
         graph.addEdgeAirlines(graph.findVertex(first)->getInfo(), graph.findVertex(second)->getInfo(),distance, airline);
