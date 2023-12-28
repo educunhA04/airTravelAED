@@ -400,6 +400,12 @@ void Menu::flightsCities() {
         flights();
     }
 }
+
+void Menu::reachableAirport() {
+
+}
+
+//--------------------------------------------- MENUS ------------------------------------------------//
 void Menu::flights() {
     string inp;
     while (true) {
@@ -451,6 +457,29 @@ void Menu::specificAirport() {
     }
 }
 
+void Menu::reachable() {
+    string inp;
+    while (true) {
+        cout << "\n\n" << "# Select a valid option #" << "\n\n"
+             << "1 -> Reachable Airports" << endl
+             << "2 -> Reachable City" << endl
+             << "3 -> Reachable Country" << endl
+             << "B -> Back to the previous Menu \n\n"
+             << "Option: ";
+
+        cin >> inp;
+
+        if (inp == "1") reachableAirport();
+        else if (inp == "2") reachableCity();
+        else if (inp == "3") reachableCountry();
+        else if (inp == "B" or inp == "b") statistics();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
+    }
+}
+
 void Menu::statistics() {
     string inp;
     while (true){
@@ -467,7 +496,7 @@ void Menu::statistics() {
         if(inp == "1") airportsStat();
         if(inp == "2") specificAirport();
         if(inp == "3") flights();
-        //if(inp == "4") reachable();
+        if(inp == "4") reachable();
         if (inp == "B" or inp == "b") init();
         else {
             cout << "\nInsert a valid input. \n\n";

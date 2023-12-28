@@ -39,8 +39,7 @@ private:
     //Reachable country//
     void reachable();
 
-    void reachableAirport();
-    void reachableAirlines();
+    void reachableAirport(); //TODO
     void reachableCity(); //TODO
     void reachableCountry(); //TODO
 
