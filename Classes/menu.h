@@ -10,45 +10,37 @@ private:
     void showAirports(); // DONE
     void showAirlines(); // DONE
 
-
     //statistics menu//
     void statistics(); // DONE
 
-
     //airports//
     void airportsStat(); // DONE
-
     void numAirports(); // DONE
     void airportTrafMax(); // DONE
-    void importantAirport(); // TODO ARTICULATION POINTS
-
+    void importantAirport(); // TODO
 
     //specific airport statistics//
     void specificAirport();
-
     void numDest(); // DONE
     void airportsDest(); // DONE
     void citiesDest(); // DONE
     void countriesDest(); // DONE
 
-
     //Flights//
     void flights();
 
-    void numFlights();
-    void numFlightsSrc();
-    void flightsAirport(Airport airport);
-    void flightsCities(); //TODO
-    void flightsAirlines(Airlines airlines);
-    void flightsCountries(); //TODO
+    void numFlights(); // DONE
+    void flightsAirport(); // DONE
+    void flightsCities(); // DONE
+    void flightsAirlines(); // DONE
+    void flightsCountries(); // DONE
 
 
     //Reachable country//
-
     void reachable();
 
-    void reachableAirport(Airport airport);
-    void reachableAirlines(Airlines airlines);
+    void reachableAirport();
+    void reachableAirlines();
     void reachableCity(); //TODO
     void reachableCountry(); //TODO
 

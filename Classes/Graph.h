@@ -59,12 +59,18 @@ public:
     Edge(Vertex<T> *d, double w);
     Edge(Vertex<T> *d, double w, Airlines a);
     Vertex<T> *getDest() const;
+    Airlines getAirline() const;
     void setDest(Vertex<T> *dest);
     double getWeight() const;
     void setWeight(double weight);
     friend class Graph<T>;
     friend class Vertex<T>;
 };
+
+template<class T>
+Airlines Edge<T>::getAirline() const {
+    return airline;
+}
 
 template <class T>
 class Graph {
