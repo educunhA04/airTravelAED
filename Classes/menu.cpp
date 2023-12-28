@@ -443,9 +443,10 @@ void Menu::reachableAirport() {
     while (true) {
         cout << "Do you want to know to which airports you can reach?" << endl
              << "1 -> yes" << endl
-             << "2 -> no\n\n";
+             << "2 -> no\n\n"
+             << "Option: ";
+
         cin >> show;
-        cout << "Insert option: ";
         if (show == "1") {
             cout << "\n\nList of airports: " << endl;
             for (auto x : visited) {
@@ -453,6 +454,7 @@ void Menu::reachableAirport() {
                     cout << "| Code: " << x.getCode() << " | Name: " << x.getName() << endl;
                 }
             }
+            reachable();
         }
         if (show == "2") reachable();
         else {
@@ -508,15 +510,17 @@ void Menu::reachableCity() {
     while (true) {
         cout << "Do you want to know to which cities you can reach?" << endl
              << "1 -> yes" << endl
-             << "2 -> no\n\n";
+             << "2 -> no\n\n"
+             << "Option: ";
+
         cin >> show;
-        cout << "Insert option: ";
         if (show == "1") {
             cout << "\n\nList of cities: " << endl;
             for (auto x : visited) {
                 if (x != cityInp) {
                     cout << x << endl;
                 }
+                reachable();
             }
         }
         if (show == "2") reachable();
@@ -572,9 +576,10 @@ void Menu::reachableCountry() {
     while (true) {
         cout << "Do you want to know to which countries you can reach?" << endl
              << "1 -> yes" << endl
-             << "2 -> no\n\n";
+             << "2 -> no\n\n"
+             << "Option: ";
+
         cin >> show;
-        cout << "Insert option: ";
         if (show == "1") {
             cout << "\n\nList of countries: " << endl;
             for (auto x : visited) {
@@ -582,6 +587,7 @@ void Menu::reachableCountry() {
                     cout << x << endl;
                 }
             }
+            reachable();
         }
         if (show == "2") reachable();
         else {
