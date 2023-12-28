@@ -3,17 +3,15 @@
 
 using namespace std;
 
-string toUpperSTR(string str) {
-    /// Function to convert a string to uppercase
+string toUpperSTR(string str) { /// Function to convert a string to uppercase
     for (auto& elem : str) {
         elem = toupper(elem);
     }
     return str;
 }
 
-
 Menu::Menu() {
-    cout << "Hello! Welcome to our flight management system!" << "\n\n";
+    cout << "\nHello! Welcome to our flight management system!" << "\n\n";
     reader = new Reader();
 }
 void Menu::init() {
@@ -152,7 +150,7 @@ void Menu::airportsDest() { // printa a lista de aeroportos para o qual o aeropo
                 }
             }
         }
-        cout << "The airport represented by the code " << inp << " has flights that travel to the following airports:" << endl;
+        cout << "The airport represented by the code " << inp << " has flights to the following airports:" << endl;
         auto it = result.begin();
         while(it != result.end()){
             auto a = *it;
@@ -183,18 +181,101 @@ void Menu::numDest() {
         numDest();
     }
     else{
-        int result = 0;
+        set<string> result;
         for (auto x : reader->getGraph().getVertexSet()) {
             if (x -> getInfo().getCode() == inp) {
-                result = x->getAdj().size();
-                break;
+                auto y = x->getAdj();
+                for(auto z : y){
+                    auto a = z.getDest()->getInfo().getCode();
+                    result.insert(a);
+                }
             }
         }
-        cout << "The airport represented by the code " << inp << " has flights that travel to " << result << " different destinations.";
+        cout << "The airport represented by the code " << inp << " has flights to " << result.size() << " different destinations.";
+        specificAirport();
+    }
+}
+void Menu::citiesDest() {
+    string inp;
+    cout << "\nInsert a valid Airport code: " << endl;
+    cin >> inp;
+    bool found = false;
+
+    inp = toUpperSTR(inp);
+
+    for(auto x : reader->getAirports()){
+        if (x.getCode() == inp){
+            found = true;
+            break;
+        }
+    }
+    if (!found){
+        cout << "\nNo airport was found with code: " << inp << endl;
+        citiesDest();
+    }
+    else {
+        set<string> cities;
+        for(auto x : reader->getGraph().getVertexSet()){
+            if(x->getInfo().getCode() == inp){
+                auto adj = x->getAdj();
+                for(auto c : adj){
+                    auto i = c.getDest()->getInfo();
+                    cities.insert(i.getCity());
+                }
+            }
+        }
+        cout << "The airport represented by the code " << inp << " has flights to the following cities: " << endl;
+        auto it = cities.begin();
+        while(it != cities.end()){
+            auto a = *it;
+            cout << "| " << a << " |" << endl;
+            it++;
+        }
+        cout << endl;
         specificAirport();
     }
 }
 
+void Menu::countriesDest() {
+    string inp;
+    cout << "\nInsert a valid Airport code: " << endl;
+    cin >> inp;
+    bool found = false;
+
+    inp = toUpperSTR(inp);
+
+    for(auto x : reader->getAirports()){
+        if (x.getCode() == inp){
+            found = true;
+            break;
+        }
+    }
+    if (!found){
+        cout << "\nNo airport was found with code: " << inp << endl;
+        citiesDest();
+    }
+    else {
+        set<string> countries;
+        for(auto x : reader->getGraph().getVertexSet()){
+            if(x->getInfo().getCode() == inp){
+                auto adj = x->getAdj();
+                for(auto c : adj){
+                    auto i = c.getDest()->getInfo();
+                    countries.insert(i.getCountry());
+                }
+            }
+        }
+        cout << "The airport represented by the code " << inp << " has flights to the following countries: " << endl;
+        auto it = countries.begin();
+        while(it != countries.end()){
+            auto a = *it;
+            cout << "| " << a << " |" << endl;
+            it++;
+        }
+        cout << endl;
+        specificAirport();
+    }
+}
 void Menu::specificAirport() {
     string inp;
     while (true) {
@@ -210,8 +291,8 @@ void Menu::specificAirport() {
 
         if (inp == "1") numDest();
         if (inp == "2") airportsDest();
-        //if (inp == "3") citiesDest();
-        //if (inp == "4") countriesdest();
+        if (inp == "3") citiesDest();
+        if (inp == "4") countriesDest();
         if (inp == "b" or inp == "B") statistics();
         else {
             cout << "\nInsert a valid input. \n\n";

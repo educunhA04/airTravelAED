@@ -28,8 +28,8 @@ private:
 
     void numDest(); // DONE
     void airportsDest(); // DONE
-    void citiesDest();
-    void countriesdest();
+    void citiesDest(); // DONE
+    void countriesDest(); // DONE
 
 
     //Flights//
