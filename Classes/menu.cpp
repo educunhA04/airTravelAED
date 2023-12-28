@@ -402,7 +402,47 @@ void Menu::flightsCities() {
 }
 
 void Menu::reachableAirport() {
+    string inp;
+    cout << "\nInsert a valid airport IATA code: ";
+    cin >> inp;
+    inp = toUpperSTR(inp);
+    set<Airport> visited;
+    queue<Airport> q;
 
+    for (auto i : reader->getAirports()) {
+        if (i.getCode() == inp) {
+            q.push(i);
+            visited.insert(i);  // Mark the starting airport as visited
+        }
+    }
+
+    while (!q.empty()) {
+        Airport front = q.front();
+        q.pop();
+
+        for (auto vertex : reader->getGraph().getVertexSet()) {
+            if (vertex->getInfo() == front) {
+                auto adj = vertex->getAdj();
+
+                for (auto edge : adj) {
+                    Airport destAirport = edge.getDest()->getInfo();
+                    if (visited.find(destAirport) == visited.end()) {
+                        visited.insert(destAirport);
+                        q.push(destAirport);
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " other airports.\n\n"
+         << "List of airports: " << endl;
+
+    for (auto x : visited) {
+        if (x.getCode() != inp) {
+            cout << "| Code: " << x.getCode() << " | Name: " << x.getName() << endl;
+        }
+    }
 }
 
 //--------------------------------------------- MENUS ------------------------------------------------//
@@ -457,6 +497,7 @@ void Menu::specificAirport() {
     }
 }
 
+
 void Menu::reachable() {
     string inp;
     while (true) {
@@ -470,13 +511,14 @@ void Menu::reachable() {
         cin >> inp;
 
         if (inp == "1") reachableAirport();
+         /*
         else if (inp == "2") reachableCity();
         else if (inp == "3") reachableCountry();
         else if (inp == "B" or inp == "b") statistics();
         else {
             cout << "\nInsert a valid input. \n\n";
             cin.clear();
-        }
+        }*/
     }
 }
 
