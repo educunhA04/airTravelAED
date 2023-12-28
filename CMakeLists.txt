@@ -15,4 +15,5 @@ add_executable(AirtravelAED main.cpp
         Classes/read.cpp
         Classes/menu.cpp
         Classes/menu.h
+        main.cpp
 )
