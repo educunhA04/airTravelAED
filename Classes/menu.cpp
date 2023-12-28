@@ -435,15 +435,162 @@ void Menu::reachableAirport() {
         }
     }
 
-    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " other airports.\n\n"
-         << "List of airports: " << endl;
+    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " other airports.\n\n";
 
-    for (auto x : visited) {
-        if (x.getCode() != inp) {
-            cout << "| Code: " << x.getCode() << " | Name: " << x.getName() << endl;
+
+
+    string show;
+    while (true) {
+        cout << "Do you want to know to which airports you can reach?" << endl
+             << "1 -> yes" << endl
+             << "2 -> no\n\n";
+        cin >> show;
+        cout << "Insert option: ";
+        if (show == "1") {
+            cout << "\n\nList of airports: " << endl;
+            for (auto x : visited) {
+                if (x.getCode() != inp) {
+                    cout << "| Code: " << x.getCode() << " | Name: " << x.getName() << endl;
+                }
+            }
+        }
+        if (show == "2") reachable();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
+    }
+
+}
+
+
+void Menu::reachableCity() {
+    string inp;
+    string cityInp;
+    cout << "\nInsert a valid airport IATA code: ";
+    cin >> inp;
+    inp = toUpperSTR(inp);
+    set<string> visited;
+    queue<string> q;
+
+    for (auto i : reader->getAirports()) {
+        if (i.getCode() == inp) {
+            cityInp = i.getCity();
+            q.push(cityInp);
+            visited.insert(cityInp);
+            break;
+        }
+    }
+
+    while (!q.empty()) {
+        string front = q.front();
+        q.pop();
+
+        for (auto vertex : reader->getGraph().getVertexSet()) {
+            if (vertex->getInfo().getCity() == front) {
+                auto adj = vertex->getAdj();
+
+                for (auto edge : adj) {
+                    string destCity = edge.getDest()->getInfo().getCity();
+                    if (visited.find(destCity) == visited.end()) {
+                        visited.insert(destCity);
+                        q.push(destCity);
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " cities.\n\n";
+
+
+    string show;
+    while (true) {
+        cout << "Do you want to know to which cities you can reach?" << endl
+             << "1 -> yes" << endl
+             << "2 -> no\n\n";
+        cin >> show;
+        cout << "Insert option: ";
+        if (show == "1") {
+            cout << "\n\nList of cities: " << endl;
+            for (auto x : visited) {
+                if (x != cityInp) {
+                    cout << x << endl;
+                }
+            }
+        }
+        if (show == "2") reachable();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
+    }
+
+}
+
+void Menu::reachableCountry() {
+    string inp;
+    string countryInp;
+    cout << "\nInsert a valid airport IATA code: ";
+    cin >> inp;
+    inp = toUpperSTR(inp);
+    set<string> visited;
+    queue<string> q;
+
+    for (auto i : reader->getAirports()) {
+        if (i.getCode() == inp) {
+            countryInp = i.getCountry();
+            q.push(countryInp);
+            visited.insert(countryInp);
+            break;
+        }
+    }
+
+    while (!q.empty()) {
+        string front = q.front();
+        q.pop();
+
+        for (auto vertex : reader->getGraph().getVertexSet()) {
+            if (vertex->getInfo().getCountry() == front) {
+                auto adj = vertex->getAdj();
+
+                for (auto edge : adj) {
+                    string destCountry = edge.getDest()->getInfo().getCountry();
+                    if (visited.find(destCountry) == visited.end()) {
+                        visited.insert(destCountry);
+                        q.push(destCountry);
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " countries.\n\n";
+
+
+    string show;
+    while (true) {
+        cout << "Do you want to know to which countries you can reach?" << endl
+             << "1 -> yes" << endl
+             << "2 -> no\n\n";
+        cin >> show;
+        cout << "Insert option: ";
+        if (show == "1") {
+            cout << "\n\nList of countries: " << endl;
+            for (auto x : visited) {
+                if (x != countryInp) {
+                    cout << x << endl;
+                }
+            }
+        }
+        if (show == "2") reachable();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
         }
     }
 }
+
 
 //--------------------------------------------- MENUS ------------------------------------------------//
 void Menu::flights() {
@@ -511,14 +658,13 @@ void Menu::reachable() {
         cin >> inp;
 
         if (inp == "1") reachableAirport();
-         /*
         else if (inp == "2") reachableCity();
         else if (inp == "3") reachableCountry();
         else if (inp == "B" or inp == "b") statistics();
         else {
             cout << "\nInsert a valid input. \n\n";
             cin.clear();
-        }*/
+        }
     }
 }
 
