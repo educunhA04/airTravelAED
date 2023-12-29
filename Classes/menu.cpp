@@ -104,6 +104,9 @@ void Menu::showAirlines() {
 
     cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
 }
+void Menu::bestOption(){
+
+}
 
 //--------------------------------STATISTICS----------------------------------------//
 
@@ -1195,7 +1198,6 @@ void Menu::airportTrafMax() { // airport with the biggest number of flights (als
     cout << "\nThe airport with the biggest number of flights is " << x << " (Code: "<< y << ") "<< "located in: " << b << ", " << a << " with " << count << " flights." << endl;
     airportsStat();
 }
-
 struct CompareFlights {
     bool operator()(const pair<string, int>& a, const pair<string, int>& b) const {
         return a.second > b.second;
@@ -1224,14 +1226,18 @@ void Menu::importantAirport() {
     int number;
     cin>>number;
     int i=0;
+    cout<<"--------------------------------------------"<<endl;
     for(auto it=preparation.begin();it!=preparation.end();it++){
         if(i==number){
             break;
         }
         auto current=it->first;
+
         for(auto airport:reader->getGraph().getVertexSet()){
+
             if(airport->getInfo().getCode()==current){
-                cout<<i+1<<"º: "<<airport->getInfo().getCode()<<" | "<<airport->getInfo().getName()<<endl;
+                cout<<"#"<<i+1<<"º: "<<airport->getInfo().getCode()<<" | "<<setw(30)<<airport->getInfo().getName()<<" #"<<endl;
+                cout<<"--------------------------------------------"<<endl;
             }
         }
         i++;

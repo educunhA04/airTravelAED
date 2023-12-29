@@ -9,7 +9,10 @@ private:
     void information(); // DONE
     void showAirports(); // DONE
     void showAirlines(); // DONE
-
+    void bestOption(); // TODO
+    void bestOptionAirport(); // TODO
+    void bestOptionCity(); // TODO
+    void bestOptionCordinates(); // TODO
     //statistics menu//
     void statistics(); // DONE
 
