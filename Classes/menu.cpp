@@ -105,7 +105,6 @@ void Menu::showAirlines() {
     cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
 }
 
-
 //--------------------------------STATISTICS----------------------------------------//
 
 void Menu::statistics() {
@@ -140,9 +139,6 @@ void Menu::statistics() {
         }
     }
 }
-
-
-
 string toUpperSTR(string str) { /// Function to convert a string to uppercase
     for (auto &elem: str) {
         elem = toupper(elem);
@@ -1199,19 +1195,14 @@ void Menu::airportTrafMax() { // airport with the biggest number of flights (als
     cout << "\nThe airport with the biggest number of flights is " << x << " (Code: "<< y << ") "<< "located in: " << b << ", " << a << " with " << count << " flights." << endl;
     airportsStat();
 }
-string max_flights(unordered_map<string,int> &numberflights){
-    int max=0;
-    string maxairport;
-    for(auto a: numberflights){
-        if(a.second>max){
-            max=a.second;
-            maxairport=a.first;
-        }
+
+struct CompareFlights {
+    bool operator()(const pair<string, int>& a, const pair<string, int>& b) const {
+        return a.second > b.second;
     }
-    return maxairport;
-}
+};
 void Menu::importantAirport() {
-    set<string> topairports;
+    set<pair<string,int>, CompareFlights> preparation;
     unordered_map<string, int> numberflights;
     for (auto airport : reader->getGraph().getVertexSet()) {
         numberflights[airport->getInfo().getCode()]= airport->getAdj().size();
@@ -1225,27 +1216,25 @@ void Menu::importantAirport() {
             }
         }
     }
-    unordered_map<string, int> copy=numberflights;
     for(auto a:numberflights){
-        string deleteairport=max_flights(copy);
-        topairports.insert(deleteairport);
-        copy.erase(deleteairport);
+        preparation.insert(a);
     }
     cout<<"What is the top number of airports you want to see?"<<endl;
     cout<<"Insert number: ";
     int number;
     cin>>number;
     int i=0;
-    for(auto a:topairports){
+    for(auto it=preparation.begin();it!=preparation.end();it++){
         if(i==number){
             break;
         }
-        i++;
+        auto current=it->first;
         for(auto airport:reader->getGraph().getVertexSet()){
-            if(airport->getInfo().getCode()==a){
-                cout<<i<<"º: "<<airport->getInfo().getCode()<<" | "<<airport->getInfo().getName()<<endl;
+            if(airport->getInfo().getCode()==current){
+                cout<<i+1<<"º: "<<airport->getInfo().getCode()<<" | "<<airport->getInfo().getName()<<endl;
             }
         }
+        i++;
     }
 
 }
