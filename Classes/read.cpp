@@ -42,8 +42,8 @@ void Reader::readAirlines() {
     string country;
 
     string current;
-    //file.open("../Data/airlines.csv");
-    file.open("../Data/testairlines.csv");
+    file.open("../Data/airlines.csv");
+    //file.open("../Data/testairlines.csv");
     getline(file, current); // ignore first line
 
     while(getline(file, current)){
@@ -79,8 +79,8 @@ void Reader::readAirports() {
     double latitude;
     double longitude;
 
-    //file.open("../Data/airports.csv");
-    file.open("../Data/testairports.csv");
+    file.open("../Data/airports.csv");
+    //file.open("../Data/testairports.csv");
     getline(file,current); // ignore first line //
 
     while(getline(file,current)){
@@ -112,8 +112,8 @@ void Reader::readFlights() {
     string target;
     string airlineCode;
 
-    //file.open("../Data/flights.csv");
-    file.open("../Data/testflights.csv");
+    file.open("../Data/flights.csv");
+    //file.open("../Data/testflights.csv");
     getline(file,current); // ignore first line //
 
     while (getline(file,current)) {
