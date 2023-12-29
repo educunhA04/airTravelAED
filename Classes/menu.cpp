@@ -186,11 +186,19 @@ void Menu::reachableAirport() {
     set<Airport> visited;
     queue<Airport> q;
 
+    bool flag = false;
+
     for (auto i : reader->getAirports()) {
         if (i.getCode() == inp) {
+            flag = true;
             q.push(i);
             visited.insert(i);  // Mark the starting airport as visited
         }
+    }
+
+    if (!flag){
+        cout << "\nAirport: " << inp << " not found."<< endl;
+        flightsCountries();
     }
 
     while (!q.empty()) {
@@ -251,14 +259,20 @@ void Menu::reachableCity() {
     inp = toUpperSTR(inp);
     set<string> visited;
     queue<string> q;
-
+    bool flag = false;
     for (auto i : reader->getAirports()) {
         if (i.getCode() == inp) {
+            flag = true;
             cityInp = i.getCity();
             q.push(cityInp);
             visited.insert(cityInp);
             break;
         }
+    }
+
+    if (!flag){
+        cout << "\nAirport: " << inp << " not found."<< endl;
+        flightsCountries();
     }
 
     while (!q.empty()) {
@@ -318,13 +332,21 @@ void Menu::reachableCountry() {
     set<string> visited;
     queue<string> q;
 
+    bool flag = false;
+
     for (auto i : reader->getAirports()) {
         if (i.getCode() == inp) {
+            flag = true;
             countryInp = i.getCountry();
             q.push(countryInp);
             visited.insert(countryInp);
             break;
         }
+    }
+
+    if (!flag){
+        cout << "\nAirport: " << inp << " not found."<< endl;
+        flightsCountries();
     }
 
     while (!q.empty()) {
@@ -439,10 +461,10 @@ void Menu::flights() {
              <<"#  Select a valid option:                      #" << "\n"
              <<"#----------------------------------------------#"<<endl
              <<"#  1 -> Total number of flights                #" << endl
-             <<"#  2 -> Statics related to a airport           #" << endl
-             <<"#  3 -> Statics related to a city              #" << endl
-             <<"#  4 -> Statics related to a country           #" << endl
-             <<"#  5 -> Statics related to a airline           #" << endl
+             <<"#  2 -> Statistics related to a airport        #" << endl
+             <<"#  3 -> Statistics related to a city           #" << endl
+             <<"#  4 -> Statistics related to a country        #" << endl
+             <<"#  5 -> Statistics related to a airline        #" << endl
              <<"#  B -> Back to the previous Menu              #"<<'\n'
              <<"#                                              #"<<endl
              <<"################################################"<<endl
@@ -1106,7 +1128,7 @@ void Menu::reachable() {
         cout << "\n\n"
              << "################# Reachable Statistics ###################" << endl
              << "#  Select a valid option:                                #" << "\n\n"
-             << "#--------------------------------------------------------#"<<endl
+             << "#--------------------------------------------------------#" << endl
              << "#  1 -> Reachable Airports                               #" << endl
              << "#  2 -> Reachable City                                   #" << endl
              << "#  3 -> Reachable Country                                #" << endl
