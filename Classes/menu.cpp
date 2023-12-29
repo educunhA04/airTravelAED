@@ -360,67 +360,6 @@ void Menu::numFlights() {
     flights();
 }
 
-void Menu::flightsAirport() { // 2 -> Number of flights from an airport
-    string inp;
-    cout << "\nInsert a valid Airport code: " << endl;
-    cin >> inp;
-    bool found = false;
-
-    inp = toUpperSTR(inp);
-
-    for (auto x: reader->getAirports()) {
-        if (x.getCode() == inp) {
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
-        cout << "\nNo airport was found with code: " << inp << endl;
-        flightsAirport();
-    } else {
-        int numflights = 0;
-        set<string> airlines;
-        for (auto vertex: reader->getGraph().getVertexSet()) {
-            if (vertex->getInfo().getCode() == inp) {
-                auto adj = vertex->getAdj();
-                for (auto current: adj) {
-                    airlines.insert(current.getAirline().getName());
-                }
-                numflights = adj.size();
-            }
-        }
-
-        cout << "The airport represented by the code " << inp << " has " << numflights << "flights from "
-             << airlines.size() << "different airlines." << endl;
-
-        cout << "Do you want to see the flights departing from the airport and the respective airline?: " << endl;
-        cout << "1 -> yes" << endl;
-        cout << "2 -> no" << endl;
-        int inp1;
-        cin >> inp1;
-
-
-        if (inp1 == 1) {
-            cout << "Now showing flights departing from the airport represented by the code: " << inp << ":" << endl;
-            cout << "+----------------------+--------------------------------+----------------------+" << endl;
-            cout << "|      Departure       |              Arrival           |        Airline       |" << endl;
-            cout << "+----------------------+--------------------------------+----------------------+" << endl;
-
-            for (auto vertex : reader->getGraph().getVertexSet()) {
-                if (vertex->getInfo().getCode() == inp) {
-                    auto adj = vertex->getAdj();
-                    for (auto current : adj) {
-                        cout << "| " << std::setw(20) << vertex->getInfo().getCode() << " | "
-                             << std::setw(30) << current.getDest()->getInfo().getName() << " | "
-                             << std::setw(20) << current.getAirline().getName() << " |" << endl;
-                        cout << "+----------------------+--------------------------------+----------------------+" << endl;
-                    }
-                }
-            }
-        }
-        flights();
-    }
-}
 
 void Menu::flightsCountries() {
     string inp;
@@ -493,42 +432,66 @@ void Menu::flightsCountries() {
         }
     }
 }
-void Menu::flightsAirlines(){
+void Menu::flightsAirlines() {
     string inp;
     cout << "\nInsert a valid Airline code: " << endl;
     cin >> inp;
     inp = toUpperSTR(inp);
     bool found = false;
     string airline_name;
-    for(auto x : reader->getAirlines()){
-        if(inp == x.getCode()) {
+    for (auto x: reader->getAirlines()) {
+        if (inp == x.getCode()) {
             found = true;
             airline_name = x.getName();
         }
     }
-    if(!found){
+    if (!found) {
         cout << "No airline was found with code: " << inp << "." << endl;
         flightsAirlines();
     }
-    if(found){
-        set<string> result;
-        for(auto v : reader->getGraph().getVertexSet()){
+    if (found) {
+        set<tuple<string, string, string, string, string, string>> airlinesFlights;
+        for (auto v: reader->getGraph().getVertexSet()) {
             auto adj = v->getAdj();
-            for(auto a : adj){
-                if (a.getAirline().getCode() == inp){
-                    string current = "| Departure: " + v->getInfo().getCode() + " - " + v->getInfo().getCity() + " - " + v->getInfo().getCountry() + " "
-                                     "| Arrival: " + a.getDest()->getInfo().getCode() + " - " + a.getDest()->getInfo().getCity() + " - " + a.getDest()->getInfo().getCountry() + " |";
-                    result.insert(current);
+            for (auto current: adj) {
+                if (current.getAirline().getCode() == inp) {
+                    auto fly = make_tuple(v->getInfo().getCode(), v->getInfo().getCity(), v->getInfo().getCountry(),
+                                          current.getDest()->getInfo().getCode(),
+                                          current.getDest()->getInfo().getCity(),
+                                          current.getDest()->getInfo().getCountry());
+                    airlinesFlights.insert(fly);
                 }
             }
         }
-        cout << "The airline represented by the code " << inp << " (" << airline_name << ") is responsible for the following flights: " << endl;
-        auto it = result.begin();
-        while(it != result.end()){
-            auto st = *it;
-            cout << st << endl;
-            it++;
+        cout << "The airline represented by the code " << inp << " (" << airline_name << ") is responsible for "
+             << airlinesFlights.size() << " flights." << endl;
+        cout << "#######################################################################"<<'\n';
+        cout << "#  Do you want to see the airline " << inp << " is responsible?       #"<< '\n';
+        cout << "#---------------------------------------------------------------------#"<<'\n';
+        cout << "#  1-> yes                                                            #" << '\n';
+        cout << "#  2-> no                                                             #" << '\n';
+        cout << "#######################################################################" << '\n';
+
+        int inp1;
+        cin >> inp1;
+        if (inp1 == 1) {
+            cout<< "|----------------------------------------------------||----------------------------------------------------|"<< '\n';
+            cout<< "|                   Departure                        ||                    Arriving                        |"<< '\n';
+            cout<< "|----------------------------------------------------||----------------------------------------------------|"<< '\n';
+            cout<< "|       Code      |       City      |     Country    ||       Code      |       City      |     Country    |"<< '\n';
+            cout<< "|----------------------------------------------------||----------------------------------------------------|"<< '\n';
+
+            for (const auto &flight: airlinesFlights) {
+                cout << "| " << setw(16) << get<0>(flight) << " | "
+                     << setw(16) << get<1>(flight) << " | "
+                     << setw(16) << get<2>(flight) << " | "
+                     << setw(16) << get<3>(flight) << " | "
+                     << setw(16) << get<4>(flight) << " | "
+                     << setw(16) << get<5>(flight) << " |" << '\n';
+                cout<< "+-----------------+-----------------+----------------||-----------------+-----------------+----------------|"<< '\n';
+            }
         }
+        flights();
     }
 }
 void Menu::flightsCities() { //Number of flights per a city
@@ -667,6 +630,120 @@ void Menu::flightsCities() { //Number of flights per a city
     else{
         cout<<"Invalid option"<<'\n';
         flightsCities();
+    }
+}
+void Menu::flightsAirport() { // 2 -> Number of flights from an airport
+    string inp;
+    cout << "\nInsert a valid Airport code: " << endl;
+    cin >> inp;
+    bool found = false;
+
+    inp = toUpperSTR(inp);
+
+    for (auto x: reader->getAirports()) {
+        if (x.getCode() == inp) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        cout << "\nNo airport was found with code: " << inp << endl;
+        flightsAirport();
+    } else {
+
+        set<tuple<string,string,string>> departing;
+        set<tuple<string,string,string>> arriving;
+        set<string> airlines;
+        for (auto vertex: reader->getGraph().getVertexSet()) {
+            if (vertex->getInfo().getCode() == inp) {
+                auto adj = vertex->getAdj();
+                for (auto current: adj) {
+                    airlines.insert(current.getAirline().getName());
+                    auto prov=make_tuple(vertex->getInfo().getCode(),current.getDest()->getInfo().getCode(),current.getAirline().getName());
+                    departing.insert(prov);
+                }
+            }
+            else{
+                auto adj = vertex->getAdj();
+                for (auto current: adj) {
+                    if(current.getDest()->getInfo().getCode()==inp){
+                        airlines.insert(current.getAirline().getName());
+                        auto prov=make_tuple(vertex->getInfo().getCode(),current.getDest()->getInfo().getCode(),current.getAirline().getName());
+                        arriving.insert(prov);
+                    }
+                }
+            }
+        }
+        int departingflights=departing.size();
+        int arrivingflights=arriving.size();
+
+        cout << "The airport represented by the code " << inp << " has " << departingflights << "flights departing and " << arrivingflights << " flights arriving from " <<
+             airlines.size() << " different airlines." << endl;
+
+        cout <<"######################################################################################"<<'\n';
+        cout <<"#    Do you want to see:                                                             #"<<'\n';
+        cout <<"#------------------------------------------------------------------------------------#"<<endl;
+        cout <<"#  1-> The flights departing from the airport and the respective airline.            # " << endl;
+        cout <<"#  2-> The flights arriving to the airport and the respective airline.               #" << endl;
+        cout <<"#  3-> The flights arriving and departing to the airport and the respective airline. #" << endl;
+        cout <<"#  B-> Back to the previous menu.                                                    #" << endl;
+        cout <<"######################################################################################"<< endl;
+        int inp1;
+        cin >> inp1;
+
+
+        if (inp1 == 1) {
+            cout << "Now showing flights departing from the airport represented by the code: " << inp << ":" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+
+            for (auto fly: departing){
+                cout << "| " << std::setw(30) << get<0>(fly) << " | "
+                     << std::setw(30) << get<1>(fly) << " | "
+                     << std::setw(20) << get<2>(fly) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+
+        else if(inp1==2){
+            cout << "Now showing flights arriving from the airport represented by the code: " << inp << ":" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+
+            for (auto fly: arriving){
+                cout << "| " << std::setw(30) << get<0>(fly) << " | "
+                     << std::setw(30) << get<1>(fly) << " | "
+                     << std::setw(20) << get<2>(fly) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+        else if(inp1==3){
+            auto compareFunction = [](const tuple<std::string, string, string>& a, const tuple<string, string, string>& b) {
+                return get<0>(a) < get<0>(b);
+            };
+            set<tuple<string, string, string>, decltype(compareFunction)> allFlights(compareFunction);
+            for (const auto& tuple : departing) {
+                allFlights.insert(tuple);
+            }
+
+            for (const auto& tuple : arriving) {
+                allFlights.insert(tuple);
+            }
+
+            cout << "Now showing flights departing and arriving from the airport represented by the code: " << inp << ":" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for (auto fly: allFlights){
+                cout << "| " << std::setw(30) << get<0>(fly) << " | "
+                     << std::setw(30) << get<1>(fly) << " | "
+                     << std::setw(20) << get<2>(fly) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+        flights();
     }
 }
 
