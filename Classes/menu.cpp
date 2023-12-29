@@ -1,49 +1,61 @@
 #include <iostream>
+#include <iomanip>
 #include <unordered_map>
 #include "menu.h"
 
 using namespace std;
 
-string toUpperSTR(string str) { /// Function to convert a string to uppercase
-    for (auto& elem : str) {
-        elem = toupper(elem);
-    }
-    return str;
-}
-
 Menu::Menu() {
-    cout << "\nHello! Welcome to our flight management system!" << "\n\n";
+    cout << "\n                            Hello!               " << "\n ";
+    cout << "           Welcome to our flight management system!" << "\n\n";
+    cout << "            ______" << endl;
+    cout << "            _\\ _~-\\___" << endl;
+    cout << "=  = ==(____AED____" << endl;
+    cout << "            \\_____\\___________________,-~~~~~~~`-.." << endl;
+    cout << "            /     o O o o o o O O o o o o o o O o  |\\_" << endl;
+    cout << "            `~-.__        ___..----..                  )" << endl;
+    cout << "                  `---~~\\___________/------------`````" << endl;
+    cout << "=  ===(_________D" << "\n\n";
     reader = new Reader();
 }
 
-void Menu::airportTrafMax() { // airport with the biggest number of flights (also the count of flights) //
-    Airport result;
-    int count = 0;
+void Menu::init() {
+    string inp;
+    while (true) {
+        cout <<"##############################" << "\n"
+             <<"#     Select an option:      #" << "\n"
+             <<"#----------------------------#" << "\n"
+             <<"#   1 -> Consult Info        #"<< '\n'
+             <<"#   2 -> Consult Statistics  #" << "\n"
+             <<"#   E -> EXIT                #" << "\n"
+             <<"#                            #" << "\n"
+             <<"##############################" << "\n\n"
+             << "Option: ";
+        cin >> inp;
 
-    for(auto v : reader->getGraph().getVertexSet()){
-        if(v->getAdj().size() > count){
-            count = v->getAdj().size();
-            result = v->getInfo();
+        if (inp == "1") {information();}
+        else if (inp == "2") {statistics();}
+        else if (inp == "E" or inp == "e") {exit(0);}
+        else {
+            cout << "\n Insert a valid input. \n\n";
+            cin.clear();
         }
     }
-    auto x = result.getName();
-    auto y = result.getCode();
-    auto a = result.getCountry();
-    auto b = result.getCity();
-    cout << "\nThe airport with the biggest number of flights is " << x << " (Code: "<< y << ") "
-         << "located in: " << b << ", " << a << " with " << count << " flights." << endl;
-    airportsStat();
 }
-
+//--------------------------------------INFO------------------------------------------//
 void Menu::information() {
     string inp;
     while (true) {
-        cout << "\n\n" << "# Which information do you want to consult? #" << endl
-             << "Select a valid option: " << "\n\n"
-             << "1 -> Airports list" << endl
-             << "2 -> Airlines list" << endl
-             << "B -> Back to the previous Menu \n\n"
-             << "Option: ";
+        cout << "\n\n"   <<"#############################################" << endl
+                         <<"# Which information do you want to consult? #" << endl
+                         <<"#-------------------------------------------#"<< endl
+                         <<"#         Select a valid option:            #" << "\n"
+                         <<"#         1 -> Airports list                #"<< endl
+                         <<"#         2 -> Airlines list                #" << endl
+                         <<"#         B -> Back to the previous Menu    #"<<"\n"
+                         <<"#                                           #"<< endl
+                         <<"#############################################" << "\n\n"
+                         << "Option: ";
         cin >> inp;
         if (inp == "1") {
             showAirports();
@@ -61,23 +73,103 @@ void Menu::information() {
     }
 }
 void Menu::showAirports() {
-    cout << "\nNow showing all airports:" << endl;
+
+    cout << "\n                      Now showing all airports                             " << endl;
+    cout << "+------+--------------------------------+---------------------------+----------------------+" << endl;
+    cout << "| Code |              Name              |            City           |        Country       |" << endl;
+    cout << "+------+--------------------------------+---------------------------+----------------------+" << endl;
+
     for (auto i : reader->getAirports()) {
-        cout << "| Code: " << i.getCode() << " | "
-             << "Name: "<< i.getName() << " | "
-             << "City: " << i.getCity() << " | "
-             << "Country: " << i.getCountry() << " |" << endl;
+        cout << "| " << std::setw(4) << i.getCode() << " | "
+             << std::setw(30) << i.getName() << " | "
+             << std::setw(25) << i.getCity() << " | "
+             << std::setw(20) << i.getCountry() << " |" << endl;
     }
+
+    cout << "+------+--------------------------------+---------------------------+----------------------+" << endl;
+
 }
 void Menu::showAirlines() {
-    cout << "\nNow showing all airlines" << endl;
+    cout << "\n                      Now showing all airlines                             " << endl;
+    cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
+    cout << "| Code |              Name             |         Call Sign        |        Country       |" << endl;
+    cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
+
     for (auto i : reader->getAirlines()) {
-        cout << "| Code: " << i.getCode() << " | "
-             << "Name: " << i.getName() << " | "
-             << "Call Sign: " << i.getCall() << " | "
-             << "Country: " << i.getCountry() << " |" << endl;
+        cout << "| " << std::setw(4) << i.getCode() << " | "
+             << std::setw(30) << i.getName() << " | "
+             << std::setw(25) << i.getCall() << " | "
+             << std::setw(20) << i.getCountry() << " |" << endl;
+    }
+
+    cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
+}
+
+
+//--------------------------------STATISTICS----------------------------------------//
+
+void Menu::statistics() {
+    string inp;
+    while (true) {
+        cout << "\n\n"
+             << "##############################################" << endl
+             << "#      Within the following options, from    #" << endl
+             << "#      which do you want to access to        #" << endl
+             << "#      statistics?                           #" << endl
+             << "#--------------------------------------------#" << endl
+             << "#                                            #" << endl
+             << "#        Select a valid option:              #" << "\n"
+             << "#        1 -> All Airports                   #" << endl
+             << "#        2 -> A specific Airport             #" << endl
+             << "#        3 -> The Flights                    #" << endl
+             << "#        4 -> A reachable Target             #" << endl
+             << "#        B -> Back to the previous Menu      #" << "\n"
+             << "#                                            #" << endl
+             << "##############################################" << "\n\n"
+             << "Option: ";
+        cin >> inp;
+
+        if (inp == "1") airportsStat();
+        else if (inp == "2") specificAirport();
+        else if (inp == "3") flights();
+        else if (inp == "4") reachable();
+        else if (inp == "B" || inp == "b") init();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
     }
 }
+
+
+
+string toUpperSTR(string str) { /// Function to convert a string to uppercase
+    for (auto& elem : str) {
+        elem = toupper(elem);
+    }
+    return str;
+}
+
+void Menu::airportTrafMax() { // airport with the biggest number of flights (also the count of flights) //
+    Airport result;
+    int count = 0;
+
+    for(auto v : reader->getGraph().getVertexSet()){
+        if(v->getAdj().size() > count){
+            count = v->getAdj().size();
+            result = v->getInfo();
+        }
+    }
+    auto x = result.getName();
+    auto y = result.getCode();
+    auto a = result.getCountry();
+    auto b = result.getCity();
+    cout << "\nThe airport with the biggest number of flights is " << x << " (Code: "<< y << ") "<< "located in: " << b << ", " << a << " with " << count << " flights." << endl;
+    airportsStat();
+}
+
+
+
 
 void Menu::airportsDest() { // printa a lista de aeroportos para o qual o aeroporto inp viaja
     string inp;
@@ -109,12 +201,17 @@ void Menu::airportsDest() { // printa a lista de aeroportos para o qual o aeropo
         }
         cout << "The airport represented by the code " << inp << " has flights to the following airports:" << endl;
         auto it = result.begin();
-        while(it != result.end()){
+        while (it != result.end()) {
             auto a = *it;
-            cout << "| Code: " << a.getCode() << " | "
-                 << "Name: "<< a.getName() << " | " << endl;
+            cout << "+------+-------------------------------+" << endl;
+            cout << "| Code |              Name             |" << endl;
+            cout << "+------+-------------------------------+" << endl;
+            cout << "| " << std::setw(4) << a.getCode() << " | "<< std::setw(30) << a.getName() << " |" << endl;
+            cout << "+------+-------------------------------+" << endl;
+
             it++;
         }
+
         specificAirport();
     }
 }
@@ -186,9 +283,12 @@ void Menu::citiesDest() {
         }
         cout << "The airport represented by the code " << inp << " has flights to the following cities: " << endl;
         auto it = cities.begin();
-        while(it != cities.end()){
+        while (it != cities.end()) {
             auto a = *it;
-            cout << "| " << a << " |" << endl;
+            cout << "+----------------------+" << endl;
+            cout << "| " << std::setw(20) << a << " |" << endl;
+            cout << "+----------------------+" << endl;
+
             it++;
         }
         cout << endl;
@@ -227,9 +327,12 @@ void Menu::countriesDest() {
         }
         cout << "The airport represented by the code " << inp << " has flights to the following countries: " << endl;
         auto it = countries.begin();
-        while(it != countries.end()){
+        while (it != countries.end()) {
             auto a = *it;
-            cout << "| " << a << " |" << endl;
+            cout << "+----------------------+" << endl;
+            cout << "| " << std::setw(20) << a << " |" << endl;
+            cout << "+----------------------+" << endl;
+
             it++;
         }
         cout << endl;
@@ -238,15 +341,26 @@ void Menu::countriesDest() {
 }
 
 void Menu::numFlights() {
-    int result = 0;
+    int flightsresult = 0;
     for (auto x : reader->getGraph().getVertexSet()){
         auto y = x->getAdj();
-        result += y.size();
+        flightsresult += y.size();
     }
-    cout << "There is a total of " << result << " different flights registered in our system.";
+    int airlinesresult=0;
+    set<string> airlines;
+    for(auto vertex : reader->getGraph().getVertexSet()){
+        auto currentadj = vertex->getAdj();
+        for(auto it=currentadj.begin(); it!=currentadj.end();it++){
+            airlines.insert(it->getAirline().getCode());
+        }
+    }
+    airlinesresult=airlines.size();
+
+    cout << "There is a total of " << flightsresult << " different flights from "<<airlinesresult<<" different airlines registered in our system."<<'\n';
     flights();
 }
-void Menu::flightsAirport() { // 2 -> List of flights from an airport
+
+void Menu::flightsAirport() { // 2 -> Number of flights from an airport
     string inp;
     cout << "\nInsert a valid Airport code: " << endl;
     cin >> inp;
@@ -254,41 +368,63 @@ void Menu::flightsAirport() { // 2 -> List of flights from an airport
 
     inp = toUpperSTR(inp);
 
-    for(auto x : reader->getAirports()){
-        if (x.getCode() == inp){
+    for (auto x: reader->getAirports()) {
+        if (x.getCode() == inp) {
             found = true;
             break;
         }
     }
-    if (!found){
+    if (!found) {
         cout << "\nNo airport was found with code: " << inp << endl;
         flightsAirport();
-    }
-    else{
-        set<string> flight;
-        for(auto v : reader->getGraph().getVertexSet()){
-            if(v->getInfo().getCode() == inp){
-                auto x = v->getAdj();
-                for(auto y : x){
-                    string result = "| Departure: " + inp + " | Arrival : " + y.getDest()->getInfo().getCode()
-                                    + " | Airline: " + y.getAirline().getName() + " |";
-                    flight.insert(result);
+    } else {
+        int numflights = 0;
+        set<string> airlines;
+        for (auto vertex: reader->getGraph().getVertexSet()) {
+            if (vertex->getInfo().getCode() == inp) {
+                auto adj = vertex->getAdj();
+                for (auto current: adj) {
+                    airlines.insert(current.getAirline().getName());
                 }
+                numflights = adj.size();
             }
         }
-        cout << "Now showing flights departing from the airport represented by the code: " << inp << ":" << endl;
-        auto it = flight.begin();
-        while(it != flight.end()){
-            auto a = *it;
-            cout << a << endl;
-            it++;
+
+        cout << "The airport represented by the code " << inp << " has " << numflights << "flights from "
+             << airlines.size() << "different airlines." << endl;
+
+        cout << "Do you want to see the flights departing from the airport and the respective airline?: " << endl;
+        cout << "1 -> yes" << endl;
+        cout << "2 -> no" << endl;
+        int inp1;
+        cin >> inp1;
+
+
+        if (inp1 == 1) {
+            cout << "Now showing flights departing from the airport represented by the code: " << inp << ":" << endl;
+            cout << "+----------------------+--------------------------------+----------------------+" << endl;
+            cout << "|      Departure       |              Arrival           |        Airline       |" << endl;
+            cout << "+----------------------+--------------------------------+----------------------+" << endl;
+
+            for (auto vertex : reader->getGraph().getVertexSet()) {
+                if (vertex->getInfo().getCode() == inp) {
+                    auto adj = vertex->getAdj();
+                    for (auto current : adj) {
+                        cout << "| " << std::setw(20) << vertex->getInfo().getCode() << " | "
+                             << std::setw(30) << current.getDest()->getInfo().getName() << " | "
+                             << std::setw(20) << current.getAirline().getName() << " |" << endl;
+                        cout << "+----------------------+--------------------------------+----------------------+" << endl;
+                    }
+                }
+            }
         }
         flights();
     }
 }
+
 void Menu::flightsCountries() {
     string inp;
-    cout << "\nInsert a valid city name: " << endl;
+    cout << "\nInsert a valid country name: " << endl;
     cin >> inp;
     inp = toUpperSTR(inp);
     bool found = false;
@@ -304,24 +440,56 @@ void Menu::flightsCountries() {
         flightsCountries();
     }
     else{
-        set<string> result;
+        set<tuple<string,string,string>> international;
+        set<tuple<string,string,string>> domestic;
         for(auto v : reader->getGraph().getVertexSet()){
             if(toUpperSTR(v->getInfo().getCountry()) == inp) {
-                auto a = v->getAdj();
-                for(auto x : a){
-                    string current;
-                    current = "| Departure (Country / Airport): " + v->getInfo().getCountry() + " / " + v->getInfo().getCode() + " " +
-                              "| Arrival (Country / Airport): " + x.getDest()->getInfo().getCountry() + " / " + x.getDest()->getInfo().getCode() + " " +
-                              "| Airline: " + x.getAirline().getName() + " |";
-                    result.insert(current);
+                auto adj = v->getAdj();
+                for(auto current : adj){
+                    if(current.getDest()->getInfo().getCountry() != inp){
+                        auto prov=make_tuple(v->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
+                        international.insert(prov);
+                    }
+                    else{
+                        auto prov=make_tuple(v->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
+                        domestic.insert(prov);
+                    }
                 }
             }
         }
-        auto it = result.begin();
-        while(it != result.end()){
-            auto q = *it;
-            cout << q << endl;
-            it++;
+        cout<<"The country represented by the code "<<inp<<" has "<<international.size()<<" international flights and "<<domestic.size()<<" domestic flights."<<'\n';
+        cout<<"###################################################################"<<'\n';
+        cout<<"#    Do you want to see:                                          #"<<'\n';
+        cout<<"#-----------------------------------------------------------------#"<<endl;
+        cout<<"#   1 -> The departing and arriving of the domestic flights       #"<<endl;
+        cout<<"#   2 -> The departing and arriving of the international flights  #"<<endl;
+        cout<<"#   B -> Back to the previous Menu                                #"<<endl;
+        cout<<"#                                                                 #"<<endl;
+        cout<<"###################################################################"<<'\n';
+        int inp1;
+        cin>>inp1;
+        if(inp1==1){
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for(auto current : domestic){
+                cout << "| " << std::setw(30) << get<0>(current) << " | "
+                     << std::setw(30) << get<1>(current) << " | "
+                     << std::setw(20) << get<2>(current) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+        else if(inp1==2){
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for(auto current : international){
+                cout << "| " << std::setw(30) << get<0>(current) << " | "
+                     << std::setw(30) << get<1>(current) << " | "
+                     << std::setw(20) << get<2>(current) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+
         }
     }
 }
@@ -363,18 +531,18 @@ void Menu::flightsAirlines(){
         }
     }
 }
-void Menu::flightsCities() {
+void Menu::flightsCities() { //Number of flights per a city
     string inp;
     cout << "\nInsert a valid city name: " << endl;
     cin >> inp;
     inp = toUpperSTR(inp);
     bool found = false;
-    Vertex<Airport> * a;
+    Vertex<Airport> * airport;
 
     for(auto v : reader->getGraph().getVertexSet()){
         if(toUpperSTR(v->getInfo().getCity()) == inp) {
             found = true;
-            a = v;
+            airport= v;
         }
     }
 
@@ -382,25 +550,126 @@ void Menu::flightsCities() {
         cout << "\nCity: " << inp << " not found."<< endl;
         flightsCities();
     }
-    else{
+    cout<<"################################################################################################"<<endl;
+    cout<<"#  Select an option:                                                                           #"<<'\n';
+    cout<<"#----------------------------------------------------------------------------------------------#"<<endl;
+    cout<<"#  1-> See the number of flights departing from the city and the respective airline            #"<<endl;
+    cout<<"#  2-> See the number of flights arriving to the city and the respective airline               #"<<endl;
+    cout<<"#  3-> See the number of flights departing and arriving to the city and the respective airline #"<<endl;
+    cout<<"#  B-> Back to the previous menu                                                               #"<<endl;
+    cout<<"#                                                                                              #"<<endl;
+    cout<<"################################################################################################"<<endl;
+    string option;
+    cin>>option;
+    if(option=="1"){
         set<string> flight;
-        auto b = a->getAdj();
-        for(auto e : b){
-            string result;
-            result = "| Departure: " + a->getInfo().getCity() + " | Arrival: " + e.getDest()->getInfo().getCity() +
-                    " | Airline: " + e.getAirline().getName() + " |";
-            flight.insert(result);
-        }
-        cout << "Now showing flights departing from " << a->getInfo().getCity() << ":" << endl;
-        auto it = flight.begin();
-        while(it != flight.end()){
-            auto n = *it;
-            cout << n << endl;
-            it++;
+        auto adj = airport->getAdj();
+        int numdeparting=adj.size();
+        cout<<"The number of flights departing from "<<airport->getInfo().getCity()<<" is "<<numdeparting<<"."<<'\n';
+        cout<<"######################################################"<<'\n';
+        cout<<"#    Do you want to see the flights departing from   #"<<'\n';
+        cout<<"#    the city and the respective airline?            #"<<endl;
+        cout<<"#----------------------------------------------------#"<<endl;
+        cout<<"#   1 -> yes                                         #"<<endl;
+        cout<<"#   2 -> no                                          #"<<endl;
+        cout<<"#                                                    #"<<endl;
+        cout<<"######################################################"<<'\n';
+        int inp1;
+        cin>>inp1;
+        if(inp1==1){
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for(auto current : adj){
+                cout << "| " << std::setw(30) << airport->getInfo().getCity() << " | "
+                     << std::setw(30) << current.getDest()->getInfo().getCity() << " | "
+                     << std::setw(20) << current.getAirline().getName() << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
         }
         flights();
     }
+    else if(option=="2"){
+        set<tuple<string,string,string>> flight;
+        for(auto vertex : reader->getGraph().getVertexSet()){
+            auto adj = vertex->getAdj();
+            for(auto current : adj){
+                if(current.getDest()->getInfo().getCity()==airport->getInfo().getCity()){
+                    auto prov=make_tuple(vertex->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
+                }
+            }
+        }
+        cout<<"The number of flights arriving from "<<airport->getInfo().getCity()<<" is "<<flight.size()<<'\n';
+        cout<<"######################################################"<<'\n';
+        cout<<"#    Do you want to see the flights arriving from    #"<<'\n';
+        cout<<"#    the city and the respective airline?            #"<<endl;
+        cout<<"#----------------------------------------------------#"<<endl;
+        cout<<"#   1 -> yes                                         #"<<endl;
+        cout<<"#   2 -> no                                          #"<<endl;
+        cout<<"#                                                    #"<<endl;
+        cout<<"######################################################"<<'\n';
+        int inp1;
+        cin>>inp1;
+        if(inp1==1){
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for(auto current : flight){
+                cout << "| " << std::setw(30) << get<0>(current) << " | "
+                     << std::setw(30) << get<1>(current) << " | "
+                     << std::setw(20) << get<2>(current) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+        flights();
+    }
+    else if(option=="3"){
+        set<tuple<string,string,string>> flight;
+        for(auto vertex : reader->getGraph().getVertexSet()){
+            auto adj = vertex->getAdj();
+            for(auto current : adj){
+                if(current.getDest()->getInfo().getCity()==airport->getInfo().getCity()){
+                    auto prov=make_tuple(vertex->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
+                }
+            }
+        }
+        auto adj=airport->getAdj();
+        for(auto current:adj){
+            auto prov=make_tuple(airport->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
+        }
+        cout<<"The number of flights arriving and departing from "<<airport->getInfo().getCity()<<" is "<<flight.size()<<'\n\n';
+        cout<<"######################################################"<<'\n';
+        cout<<"#    Do you want to see the flights arriving from    #"<<'\n';
+        cout<<"#    the city and the respective airline?            #"<<endl;
+        cout<<"#----------------------------------------------------#"<<endl;
+        cout<<"#   1 -> yes                                         #"<<endl;
+        cout<<"#   2 -> no                                          #"<<endl;
+        cout<<"#                                                    #"<<endl;
+        cout<<"######################################################"<<'\n';
+        int inp1;
+        cin>>inp1;
+        if(inp1==1){
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
+            cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            for(auto current : flight){
+                cout << "| " << std::setw(30) << get<0>(current) << " | "
+                     << std::setw(30) << get<1>(current) << " | "
+                     << std::setw(20) << get<2>(current) << " |" << endl;
+                cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
+            }
+        }
+        flights();
+    }
+    else if(option=="B" or option=="b"){
+        flights();
+    }
+    else{
+        cout<<"Invalid option"<<'\n';
+        flightsCities();
+    }
 }
+
 
 void Menu::reachableAirport() {
     string inp;
@@ -658,14 +927,18 @@ void Menu::importantAirport() {
 void Menu::flights() {
     string inp;
     while (true) {
-        cout << "\n\n" << "# Flight Statistics #" << endl
-             << "Select a valid option: " << "\n\n"
-             << "1 -> Total number of flights" << endl
-             << "2 -> List of flights departed from an airport" << endl
-             << "3 -> List of flights departed from a city" << endl
-             << "4 -> List of flights departed from a country" << endl
-             << "5 -> List of flights from an airline" << endl
-             << "B -> Back to the previous Menu \n\n"
+    cout<<"\n\n"
+             <<"################ Flight Statistics #############" << endl
+             <<"#  Select a valid option:                      #" << "\n"
+             <<"#----------------------------------------------#"<<endl
+             <<"#  1 -> Total number of flights                #" << endl
+             <<"#  2 -> Statics related to a airport           #" << endl
+             <<"#  3 -> Statics related to a city              #" << endl
+             <<"#  4 -> Statics related to a country           #" << endl
+             <<"#  5 -> Statics related to a airline           #" << endl
+             <<"#  B -> Back to the previous Menu              #"<<'\n'
+             <<"#                                              #"<<endl
+             <<"################################################"<<endl
              << "Option: ";
         cin >> inp;
         if (inp == "1") numFlights();
@@ -681,40 +954,48 @@ void Menu::flights() {
     }
 }
 
-void Menu::specificAirport() {
-    string inp;
-    while (true) {
-        cout << "\n\n" << "# Specific Airport Statistics #" << endl
-             << "Select a valid option: " << "\n\n"
-             << "1 -> Number of avaiable destinations" << endl
-             << "2 -> List of destination airports" << endl
-             << "3 -> List of destination cities" << endl
-             << "4 -> List of destination countries" << endl
-             << "B -> Back to the previous Menu \n\n"
-             << "Option: ";
-        cin >> inp;
-
-        if (inp == "1") numDest();
-        if (inp == "2") airportsDest();
-        if (inp == "3") citiesDest();
-        if (inp == "4") countriesDest();
-        if (inp == "b" or inp == "B") statistics();
-        else {
-            cout << "\nInsert a valid input. \n\n";
-            cin.clear();
+    void Menu::specificAirport() {
+        string inp;
+        while (true) {
+            cout << "\n\n"
+                 << "################ Specific Airport Statistics #################" << endl
+                 << "#  Select a valid option:                                    #" << "\n"
+                 << "#------------------------------------------------------------#"<<endl
+                 << "#  1 -> Number of available destinations                     #" << endl
+                 << "#  2 -> List of destination airports                         #" << endl
+                 << "#  3 -> List of destination cities                           #" << endl
+                 << "#  4 -> List of destination countries                        #" << endl
+                 << "#  B -> Back to the previous Menu                            #"<<'\n'
+                 << "#                                                            #"<<endl
+                 << "##############################################################"<<endl
+                 << "Option: ";
+            cin >> inp;
+            if (inp == "1") numDest();
+            if (inp == "2") airportsDest();
+            if (inp == "3") citiesDest();
+            if (inp == "4") countriesDest();
+            if (inp == "b" or inp == "B") statistics();
+            else {
+                cout << "\nInsert a valid input. \n\n";
+                cin.clear();
+            }
         }
     }
-}
 
 
 void Menu::reachable() {
     string inp;
     while (true) {
-        cout << "\n\n" << "# Select a valid option #" << "\n\n"
-             << "1 -> Reachable Airports" << endl
-             << "2 -> Reachable City" << endl
-             << "3 -> Reachable Country" << endl
-             << "B -> Back to the previous Menu \n\n"
+        cout << "\n\n"
+             << "################# Reachable Statistics ###################" << endl
+             << "#  Select a valid option:                                #" << "\n\n"
+             << "#--------------------------------------------------------#"<<endl
+             << "#  1 -> Reachable Airports                               #" << endl
+             << "#  2 -> Reachable City                                   #" << endl
+             << "#  3 -> Reachable Country                                #" << endl
+             << "#  B -> Back to the previous Menu                        #"<<'\n'
+             << "#                                                        #"<<endl
+             << "##########################################################"<<endl
              << "Option: ";
 
         cin >> inp;
@@ -730,61 +1011,24 @@ void Menu::reachable() {
     }
 }
 
-void Menu::statistics() {
-    string inp;
-    while (true){
-        cout << "\n\n" << "# Within the following options, from which do you want to access to statistics? #" << endl
-             << "Select a valid option: " << "\n\n"
-             << "1 -> All Airports" << endl
-             << "2 -> A specific Airport" << endl
-             << "3 -> The Flights" << endl
-             << "4 -> A reachable Target" << endl
-             << "B -> Back to the previous Menu \n\n"
-             << "Option: ";
-        cin >> inp;
 
-        if(inp == "1") airportsStat();
-        if(inp == "2") specificAirport();
-        if(inp == "3") flights();
-        if(inp == "4") reachable();
-        if (inp == "B" or inp == "b") init();
-        else {
-            cout << "\nInsert a valid input. \n\n";
-            cin.clear();
-        }
-    }
-}
 
-void Menu::init() {
-    string inp;
-    while (true) {
-        cout << "# Select an option: #" << "\n\n"
-             << "1 -> Consult Info" << endl
-             << "2 -> Consult Statistics" << endl
-             << "E -> EXIT" << "\n\n"
-             << "Option: ";
-        cin >> inp;
-
-        if (inp == "1") {information();}
-        else if (inp == "2") {statistics();}
-        else if (inp == "E" or inp == "e") {exit(0);}
-        else {
-            cout << "\n Insert a valid input. \n\n";
-            cin.clear();
-        }
-    }
-}
 
 void Menu::airportsStat() {
     string inp;
     while (true) {
-        cout << "\n\n" << "# Airports Statistics #" << endl
-             << "Select a valid option: " << "\n\n"
-             << "1 -> Number of airports" << endl
-             << "2 -> Airport with the greatest air traffic" << endl
-             << "3 -> Important airports" << endl
-             << "B -> Back to the previous Menu \n\n"
+        cout << "\n\n"
+             << "################## Airports Statistics ###################" << endl
+             << "#  Select a valid option:                                #" << "\n"
+             << "#--------------------------------------------------------#"<<endl
+             << "#  1 -> Number of airports                               #" << endl
+             << "#  2 -> Airport with the greatest air traffic            #" << endl
+             << "#  3 -> Important airports                               #" << endl
+             << "#  B -> Back to the previous Menu                        #"<<'\n'
+             << "#                                                        #"<<endl
+             << "##########################################################"<<endl
              << "Option: ";
+
         cin >> inp;
 
         if(inp == "1") numAirports();
