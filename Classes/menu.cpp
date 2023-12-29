@@ -246,6 +246,10 @@ void Menu::flightsCountries() {
         int inp1;
         cin>>inp1;
         if(inp1==1){
+            if(domestic.size()==0){
+                cout<<"There are no domestic flights departing or arriving from "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
@@ -257,6 +261,10 @@ void Menu::flightsCountries() {
             }
         }
         else if(inp1==2){
+            if(international.size()==0){
+                cout<<"There are no international flights departing or arriving from "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
@@ -378,6 +386,10 @@ void Menu::flightsCities() { //Number of flights per a city
         int inp1;
         cin>>inp1;
         if(inp1==1){
+            if(numdeparting==0){
+                cout<<"There are no flights departing from the city represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
@@ -412,6 +424,10 @@ void Menu::flightsCities() { //Number of flights per a city
         int inp1;
         cin>>inp1;
         if(inp1==1){
+            if(flight.size()==0){
+                cout<<"There are no flights arriving from the city represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
@@ -450,6 +466,10 @@ void Menu::flightsCities() { //Number of flights per a city
         int inp1;
         cin>>inp1;
         if(inp1==1){
+            if(flight.size()==0){
+                cout<<"There are no flights arriving or departing from the city represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
@@ -531,6 +551,10 @@ void Menu::flightsAirport() { // 2 -> Number of flights from an airport
 
 
         if (inp1 == 1) {
+            if(departingflights==0){
+                cout<<"There are no flights departing from the airport represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "Now showing flights departing from the airport represented by the code: " << inp << ":" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
@@ -545,6 +569,10 @@ void Menu::flightsAirport() { // 2 -> Number of flights from an airport
         }
 
         else if(inp1==2){
+            if(arrivingflights==0){
+                cout<<"There are no flights arriving to the airport represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             cout << "Now showing flights arriving from the airport represented by the code: " << inp << ":" << endl;
             cout << "+--------------------------------+--------------------------------+----------------------+" << endl;
             cout << "|           Departure            |              Arrival           |        Airline       |" << endl;
@@ -558,6 +586,10 @@ void Menu::flightsAirport() { // 2 -> Number of flights from an airport
             }
         }
         else if(inp1==3){
+            if(arrivingflights==0 and departingflights==0){
+                cout<<"There are no flights arriving or departing to the airport represented by the code "<<inp<<"."<<'\n';
+                flights();
+            }
             auto compareFunction = [](const tuple<std::string, string, string>& a, const tuple<string, string, string>& b) {
                 return get<0>(a) < get<0>(b);
             };
