@@ -144,13 +144,11 @@ void Menu::statistics() {
 
 
 string toUpperSTR(string str) { /// Function to convert a string to uppercase
-    for (auto& elem : str) {
+    for (auto &elem: str) {
         elem = toupper(elem);
     }
     return str;
 }
-
-
 
 //--------------------------------------------- FLIGHTS STATISTIC ------------------------------------------------//
 void Menu::flights() {
@@ -161,10 +159,10 @@ void Menu::flights() {
              <<"#  Select a valid option:                      #" << "\n"
              <<"#----------------------------------------------#"<<endl
              <<"#  1 -> Total number of flights                #" << endl
-             <<"#  2 -> Statics related to a airport           #" << endl
-             <<"#  3 -> Statics related to a city              #" << endl
-             <<"#  4 -> Statics related to a country           #" << endl
-             <<"#  5 -> Statics related to a airline           #" << endl
+             <<"#  2 -> Statistics related to a airport        #" << endl
+             <<"#  3 -> Statistics related to a city           #" << endl
+             <<"#  4 -> Statistics related to a country        #" << endl
+             <<"#  5 -> Statistics related to a airline        #" << endl
              <<"#  B -> Back to the previous Menu              #"<<'\n'
              <<"#                                              #"<<endl
              <<"################################################"<<endl
@@ -828,8 +826,8 @@ void Menu::reachable() {
     while (true) {
         cout << "\n\n"
              << "################# Reachable Statistics ###################" << endl
-             << "#  Do you want to consult the:                           #" << "\n\n"
-             << "#--------------------------------------------------------#"<<endl
+             << "#  Select a valid option:                                #" << "\n\n"
+             << "#--------------------------------------------------------#" << endl
              << "#  1 -> Reachable Airports                               #" << endl
              << "#  2 -> Reachable City                                   #" << endl
              << "#  3 -> Reachable Country                                #" << endl
@@ -943,8 +941,6 @@ void Menu::reachableAirport() {
             reachable();
         }
 }
-
-
 void Menu::reachableCity() {
     string inp;
     cout << "\nInsert a valid airport IATA code: ";
@@ -1031,8 +1027,6 @@ void Menu::reachableCity() {
         reachable();
     }
 }
-
-
 void Menu::reachableCountry() {
     string inp;
     cout << "\nInsert a valid airport IATA code: ";

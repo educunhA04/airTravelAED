@@ -39,9 +39,9 @@ private:
     //Reachable country//
     void reachable();
 
-    void reachableAirport(); //TODO
-    void reachableCity(); //TODO
-    void reachableCountry(); //TODO
+    void reachableAirport(); //DONE
+    void reachableCity(); //DONE
+    void reachableCountry(); //DONE
 
 
     Reader* reader;
