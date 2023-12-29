@@ -52,6 +52,7 @@ void Menu::information() {
                          <<"#         Select a valid option:            #" << "\n"
                          <<"#         1 -> Airports list                #"<< endl
                          <<"#         2 -> Airlines list                #" << endl
+                         <<"#         3 -> Best Flight Option           #" << "\n"
                          <<"#         B -> Back to the previous Menu    #"<<"\n"
                          <<"#                                           #"<< endl
                          <<"#############################################" << "\n\n"
@@ -62,6 +63,9 @@ void Menu::information() {
         }
         else if (inp == "2") {
             showAirlines();
+        }
+        else if (inp == "3") {
+            bestOption();
         }
         else if (inp == "B" or inp == "b") {
             init();
@@ -105,7 +109,32 @@ void Menu::showAirlines() {
     cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
 }
 void Menu::bestOption(){
+    string inp;
+        cout << "\n\n"
+             << "##############################################" << endl
+             << "#      Do you want to see the best option    #" << endl
+             << "#      flight based on:                      #" << endl
+             << "#--------------------------------------------#" << endl
+             << "#                                            #" << endl
+             << "#        Select a valid option:              #" << "\n"
+             << "#        1 -> Airport                        #" << endl
+             << "#        2 -> City                           #" << endl
+             << "#        3 -> Coordinates                    #" << endl
+             << "#        B -> Back to the previous Menu      #" << "\n"
+             << "#                                            #" << endl
+             << "##############################################" << "\n\n"
+             << "Option: ";
+        cin >> inp;
 
+        if (inp == "1") bestOptionAirport();
+        else if (inp == "2") bestOptionCity();
+        else if (inp == "3") bestOptionCordinates();
+        else if (inp == "B" || inp == "b") information();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
+    }
 }
 
 //--------------------------------STATISTICS----------------------------------------//
