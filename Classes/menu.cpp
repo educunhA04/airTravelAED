@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <unordered_map>
 #include "menu.h"
+#include <cmath>
 
 using namespace std;
 
@@ -108,12 +109,15 @@ void Menu::showAirlines() {
 
     cout << "+------+-------------------------------+--------------------------+----------------------+" << endl;
 }
+//--------------------------------------BEST OPTION------------------------------------------//
 void Menu::bestOption(){
+    bool minimumAirlines = false;
+    bool neutral = false;
+    set<string> airlinesPreference;
     string inp;
         cout << "\n\n"
              << "##############################################" << endl
-             << "#      Do you want to see the best option    #" << endl
-             << "#      flight based on:                      #" << endl
+             << "#         Choose your arriving based on:     #" << endl
              << "#--------------------------------------------#" << endl
              << "#                                            #" << endl
              << "#        Select a valid option:              #" << "\n"
@@ -134,7 +138,92 @@ void Menu::bestOption(){
             cout << "\nInsert a valid input. \n\n";
             cin.clear();
         }
+    string inp1;
+    cout << "\n\n"
+         << "##############################################" << endl
+         << "#      Choose your destination based on:     #" << endl
+         << "#--------------------------------------------#" << endl
+         << "#                                            #" << endl
+         << "#        Select a valid option:              #" << "\n"
+         << "#        1 -> Airport                        #" << endl
+         << "#        2 -> City                           #" << endl
+         << "#        3 -> Coordinates                    #" << endl
+         << "#        B -> Back to the previous Menu      #" << "\n"
+         << "#                                            #" << endl
+         << "##############################################" << "\n\n"
+         << "Option: ";
+    cin >> inp1;
+    cout << "##############################################" << endl
+         << "#           Preferences in airlines          #" << endl
+         << "#--------------------------------------------#" << "\n"
+         << "#        1 -> Minimum number of airlines     #" << endl
+         << "#        2 -> Neutral                        #" << endl
+         << "#        3 -> Have a preference              #" << endl
+         << "#        B -> Back to the previous Menu      #" << "\n"
+         << "#                                            #" << endl
+         << "##############################################" << "\n\n"
+         << "Option: ";
+
+    if (inp1 == "1") {minimumAirlines= true;}
+    else if(inp1=="2"){neutral=true;}
+    else if(inp1=="3"){
+        bool found=false;
+        cout<<"Insert the airlines the code of the airlines you have preference (insert 0 to stop): "<<'\n';
+        while(true){
+            string inp2;
+            cin>>inp2;
+            if(inp2=="0"){
+                break;
+            }
+            else{
+                for(auto airline:reader->getAirlines()){
+                    if(airline.getCode()==inp2){
+                        airlinesPreference.insert(inp2);
+                        found=true;
+                    }
+                }
+                if(found==false){
+                    cout<<"No airline was found with code "<<inp2<<"."<<'\n';
+                }
+            }
+        }
     }
+    else if (inp1 == "B" || inp1 == "b") {bestOption();}
+    else {
+        cout << "\nInsert a valid input. \n\n";
+        cin.clear();
+    }
+    }
+double haversine(double lat1, double lon1, double lat2, double lon2) {//function to calculate the distance between two points
+    const double R = 6371.0;
+
+    lat1 = lat1 * M_PI / 180.0;
+    lon1 = lon1 * M_PI / 180.0;
+    lat2 = lat2 * M_PI / 180.0;
+    lon2 = lon2 * M_PI / 180.0;
+
+    double dlat = lat2 - lat1;
+    double dlon = lon2 - lon1;
+    double a = sin(dlat / 2.0) * sin(dlat / 2.0) +
+               cos(lat1) * cos(lat2) * sin(dlon / 2.0) * sin(dlon / 2.0);
+    double c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
+
+    double distance = R * c;
+
+    return distance;
+}
+void Menu::bestOptionCordinates() {
+    cout<<""
+    cout<<"What is your current location?"<<'\n';
+    string inp;
+    cout << "\nInsert a valid latitude: " << endl;
+    cin >> inp;
+    double lat = stod(inp);
+    cout << "\nInsert a valid longitude: " << endl;
+    cin >> inp;
+    double lon = stod(inp);
+
+
 }
 
 //--------------------------------STATISTICS----------------------------------------//
