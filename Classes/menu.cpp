@@ -903,7 +903,6 @@ void Menu::reachableAirport() {
             final.push(source);
             prov1=final;
             while(currentDistance<distance){
-                cout<<"Current distance: "<<currentDistance<<'\n';
                 while(!prov1.empty()){
                     Airport current=prov1.front();
                     prov1.pop();
@@ -922,6 +921,7 @@ void Menu::reachableAirport() {
                 finalSet.insert(add);
             }
             cout<<"The airport represented by the code "<<inp<<" can reach "<<finalSet.size()<<" airports with "<< inp1 <<" lay-overs"<<'\n';
+            if(finalSet.size()==0){reachable();}
             cout<<"###################################################################"<<'\n';
             cout<<"#    Do you want to see the list of reachable airports?           #"<<'\n';
             cout<<"#-----------------------------------------------------------------#"<<endl;
@@ -947,132 +947,179 @@ void Menu::reachableAirport() {
 
 void Menu::reachableCity() {
     string inp;
-    string cityInp;
     cout << "\nInsert a valid airport IATA code: ";
     cin >> inp;
+    bool found = false;
     inp = toUpperSTR(inp);
-    set<string> visited;
-    queue<string> q;
-
-    for (auto i : reader->getAirports()) {
-        if (i.getCode() == inp) {
-            cityInp = i.getCity();
-            q.push(cityInp);
-            visited.insert(cityInp);
+    if (inp == "B" or inp == "b"){
+        reachable();
+    }
+    Airport source;
+    for(auto x : reader->getAirports()){
+        if (x.getCode() == inp){
+            source = x;
+            found = true;
             break;
         }
     }
+    if (!found){
+        cout << "\nNo airport was found with code: " << inp << endl;
+        reachableAirport();
+    }
+    cout << "#####################################################"<<'\n';
+    cout << "#  How many lay-overs do you want to do?            #"<<'\n';
+    cout << "#####################################################"<<endl;
+    cout << "Number of lay-overs: ";
+    int inp1;
+    cin >> inp1;
 
-    while (!q.empty()) {
-        string front = q.front();
-        q.pop();
 
-        for (auto vertex : reader->getGraph().getVertexSet()) {
-            if (vertex->getInfo().getCity() == front) {
-                auto adj = vertex->getAdj();
-
-                for (auto edge : adj) {
-                    string destCity = edge.getDest()->getInfo().getCity();
-                    if (visited.find(destCity) == visited.end()) {
-                        visited.insert(destCity);
-                        q.push(destCity);
-                    }
-                }
+    if (inp1 < 0) {
+        cout << "\nInsert a valid input. \n\n";
+        cin.clear();
+        reachableAirport();
+    }
+    else {
+        int distance=inp1+1;
+        int currentDistance=0;
+        queue<Airport> prov1;
+        queue<Airport> prov2;
+        queue<Airport> final;
+        set<Airport> visited;
+        visited.insert(source);
+        final.push(source);
+        prov1=final;
+        while(currentDistance<distance){
+            while(!prov1.empty()){
+                Airport current=prov1.front();
+                prov1.pop();
+                dfsVistidAdj(reader->getGraph().findVertex(current),prov2,visited);
+            }
+            currentDistance++;
+            final=prov2;
+            prov1=prov2;
+            queue<Airport> emptyQueue;
+            prov2.swap(emptyQueue);
+        }
+        set<string> finalSetCities;
+        while(!final.empty()){
+            auto add=final.front();
+            final.pop();
+            auto city=add.getCity();
+            finalSetCities.insert(city);
+        }
+        cout<<"The airport represented by the code "<<inp<<" can reach "<<finalSetCities.size()<<" cities with "<< inp1 <<" lay-overs"<<'\n';
+        if(finalSetCities.size()==0){reachable();}
+        cout<<"###################################################################"<<'\n';
+        cout<<"#    Do you want to see the list of reachable cities?           #"<<'\n';
+        cout<<"#-----------------------------------------------------------------#"<<endl;
+        cout<<"#   1 -> yes                                                      #"<<endl;
+        cout<<"#   2 -> no                                                       #"<<endl;
+        cout<<"#                                                                 #"<<endl;
+        cout<<"###################################################################"<<'\n';
+        int inp2;
+        cin>>inp2;
+        if (inp2==1) {
+            cout << "+--------------------------------+" << endl;
+            cout << "|              City              |" << endl;
+            cout << "+--------------------------------+" << endl;
+            for (auto city: finalSetCities) {
+                cout << "| " << setw(31) <<left<< city <<"|" << endl;
+                cout << "+--------------------------------+" << endl;
             }
         }
+        reachable();
     }
-
-    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " cities.\n\n";
-
-
-    string show;
-    while (true) {
-        cout << "Do you want to know to which cities you can reach?" << endl
-             << "1 -> yes" << endl
-             << "2 -> no\n\n"
-             << "Option: ";
-
-        cin >> show;
-        if (show == "1") {
-            cout << "\n\nList of cities: " << endl;
-            for (auto x : visited) {
-                if (x != cityInp) {
-                    cout << x << endl;
-                }
-                reachable();
-            }
-        }
-        if (show == "2") reachable();
-        else {
-            cout << "\nInsert a valid input. \n\n";
-            cin.clear();
-        }
-    }
-
 }
+
 
 void Menu::reachableCountry() {
     string inp;
-    string countryInp;
     cout << "\nInsert a valid airport IATA code: ";
     cin >> inp;
+    bool found = false;
     inp = toUpperSTR(inp);
-    set<string> visited;
-    queue<string> q;
-
-    for (auto i : reader->getAirports()) {
-        if (i.getCode() == inp) {
-            countryInp = i.getCountry();
-            q.push(countryInp);
-            visited.insert(countryInp);
+    if (inp == "B" or inp == "b"){
+        reachable();
+    }
+    Airport source;
+    for(auto x : reader->getAirports()){
+        if (x.getCode() == inp){
+            source = x;
+            found = true;
             break;
         }
     }
-
-    while (!q.empty()) {
-        string front = q.front();
-        q.pop();
-
-        for (auto vertex : reader->getGraph().getVertexSet()) {
-            if (vertex->getInfo().getCountry() == front) {
-                auto adj = vertex->getAdj();
-
-                for (auto edge : adj) {
-                    string destCountry = edge.getDest()->getInfo().getCountry();
-                    if (visited.find(destCountry) == visited.end()) {
-                        visited.insert(destCountry);
-                        q.push(destCountry);
-                    }
-                }
-            }
-        }
+    if (!found){
+        cout << "\nNo airport was found with code: " << inp << endl;
+        reachableAirport();
     }
+    cout << "#####################################################"<<'\n';
+    cout << "#  How many lay-overs do you want to do?            #"<<'\n';
+    cout << "#####################################################"<<endl;
+    cout << "Number of lay-overs: ";
+    int inp1;
+    cin >> inp1;
 
-    cout << "The airport with code " << inp << " can reach " << visited.size() - 1 << " countries.\n\n";
 
-
-    string show;
-    while (true) {
-        cout << "Do you want to know to which countries you can reach?" << endl
-             << "1 -> yes" << endl
-             << "2 -> no\n\n"
-             << "Option: ";
-
-        cin >> show;
-        if (show == "1") {
-            cout << "\n\nList of countries: " << endl;
-            for (auto x : visited) {
-                if (x != countryInp) {
-                    cout << x << endl;
-                }
+    if (inp1 < 0) {
+        cout << "\nInsert a valid input. \n\n";
+        cin.clear();
+        reachableAirport();
+    }
+    else {
+        int distance=inp1+1;
+        int currentDistance=0;
+        queue<Airport> prov1;
+        queue<Airport> prov2;
+        queue<Airport> final;
+        set<Airport> visited;
+        visited.insert(source);
+        final.push(source);
+        prov1=final;
+        while(currentDistance<distance){
+            while(!prov1.empty()){
+                Airport current=prov1.front();
+                prov1.pop();
+                dfsVistidAdj(reader->getGraph().findVertex(current),prov2,visited);
             }
-            reachable();
+            currentDistance++;
+            final=prov2;
+            prov1=prov2;
+            queue<Airport> emptyQueue;
+            prov2.swap(emptyQueue);
         }
-        if (show == "2") reachable();
-        else {
-            cout << "\nInsert a valid input. \n\n";
-            cin.clear();
+        set<string> finalSetCountries;
+        string homecountry=source.getCountry();
+        while(!final.empty()){
+            auto add=final.front();
+            final.pop();
+            if(add.getCountry()!=homecountry){
+                auto country=add.getCountry();
+                finalSetCountries.insert(country);
+            }
         }
+        cout<<"The airport represented by the code "<<inp<<" can reach "<<finalSetCountries.size()<<" countries with "<< inp1 <<" lay-overs"<<'\n';
+        if(finalSetCountries.size()==0){reachable();}
+        cout<<"###################################################################"<<'\n';
+        cout<<"#    Do you want to see the list of reachable countries?           #"<<'\n';
+        cout<<"#-----------------------------------------------------------------#"<<endl;
+        cout<<"#   1 -> yes                                                      #"<<endl;
+        cout<<"#   2 -> no                                                       #"<<endl;
+        cout<<"#                                                                 #"<<endl;
+        cout<<"###################################################################"<<'\n';
+        int inp2;
+        cin>>inp2;
+        if (inp2==1) {
+            cout << "+--------------------------------+" << endl;
+            cout << "|              Country           |" << endl;
+            cout << "+--------------------------------+" << endl;
+            for (auto country: finalSetCountries) {
+                cout << "| " << setw(31) <<left<< country <<"|" << endl;
+                cout << "+--------------------------------+" << endl;
+            }
+        }
+        reachable();
     }
 }
 //------------------------------------------------------------------------------------------------------------//

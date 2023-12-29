@@ -93,9 +93,6 @@
 		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/tests.h">
-			<Option target="AirtravelAED"/>
-		</Unit>
 		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/main.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
