@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 #include "menu.h"
 
 using namespace std;
@@ -591,6 +592,61 @@ void Menu::reachableCountry() {
     }
 }
 
+string max_flights(unordered_map<string,int> &numberflights){
+    int max=0;
+    string maxairport;
+    for(auto a: numberflights){
+        if(a.second>max){
+            max=a.second;
+            maxairport=a.first;
+        }
+    }
+    return maxairport;
+}
+
+void Menu::importantAirport() {
+    set<string> topairports;
+    unordered_map<string, int> numberflights;
+    for (auto airport : reader->getGraph().getVertexSet()) {
+        numberflights[airport->getInfo().getCode()]= airport->getAdj().size();
+    }
+    for( auto airport:reader->getGraph().getVertexSet()){
+        auto adj=airport->getAdj();
+        for(auto it=adj.begin(); it!=adj.end();it++){
+            auto found=numberflights.find(it->getDest()->getInfo().getCode());
+            if(found!=numberflights.end()){
+                found->second=found->second+1;
+            }
+        }
+    }
+    unordered_map<string, int> copy=numberflights;
+    for(auto a:numberflights){
+        string deleteairport=max_flights(copy);
+        topairports.insert(deleteairport);
+        copy.erase(deleteairport);
+    }
+    cout<<"What is the top number of airports you want to see?"<<endl;
+    cout<<"Insert number: ";
+    int number;
+    cin>>number;
+    int i=0;
+    for(auto a:topairports){
+        if(i==number){
+            break;
+        }
+        i++;
+        for(auto airport:reader->getGraph().getVertexSet()){
+            if(airport->getInfo().getCode()==a){
+                cout<<i<<"º: "<<airport->getInfo().getCode()<<" | "<<airport->getInfo().getName()<<endl;
+            }
+        }
+    }
+
+}
+
+
+
+
 
 //--------------------------------------------- MENUS ------------------------------------------------//
 void Menu::flights() {
@@ -727,7 +783,7 @@ void Menu::airportsStat() {
 
         if(inp == "1") numAirports();
         if(inp == "2") airportTrafMax();
-        // if(inp == "3") importantAirport();
+        if(inp == "3") importantAirport();
         if (inp == "B" or inp == "b") statistics();
         else {
             cout << "\nInsert a valid input. \n\n";
