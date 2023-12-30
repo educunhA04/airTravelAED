@@ -9,13 +9,13 @@ private:
     void information(); // DONE
     void showAirports(); // DONE
     void showAirlines(); // DONE
-    void bestOptionSetter(set<string> &airlinesPreference,set<Airport> &departing,set<Airport> &destination); // TODO
+    void bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // TODO
     void bestOption(); // TODO
 
     //helper functions//
     set<Airport> city(); // DONE
     set<Airport> Coordinates(); // DONE
-    Airport Airports(); // DONE
+    set<Airport> Airports(); // DONE
     /*
     void destination(string num);
     void departure(string num);

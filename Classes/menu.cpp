@@ -37,11 +37,11 @@ void Menu::init() {
 
         if (inp == "1") {information();}
         else if (inp == "2") {statistics();}
-        /*
+
         else if (inp == "3") {
             bestOption();
         }
-        */
+
         else if (inp == "E" or inp == "e") {exit(0);}
         else {
             cout << "\n Insert a valid input. \n\n";
@@ -133,71 +133,6 @@ double haversine(double lat1, double lon1, double lat2, double lon2) {
 
     return distance;
 }
-
-/*
-void Menu::bestOptionChooseDest() {
-    string destino;
-
-    while (true) {
-        cout << "\n\n"
-             << "##############################################" << endl
-             << "#      Choose your destination based on:     #" << endl
-             << "#--------------------------------------------#" << endl
-             << "#                                            #" << endl
-             << "#        Select a valid option:              #" << "\n"
-             << "#        1 -> Airport                        #" << endl
-             << "#        2 -> City                           #" << endl
-             << "#        3 -> Coordinates                    #" << endl
-             << "#        B -> Back to the previous Menu      #" << "\n"
-             << "#                                            #" << endl
-             << "##############################################" << "\n\n"
-             << "Option: ";
-
-        cin >> destino;
-
-        if (destino == "b" or destino == "B") {
-            init();
-        }
-
-        else {
-            destination(destino);
-        }
-    }
-}
-void Menu::bestOption() {
-    string partida;
-    string destino;
-
-    while (true) {
-        cout << "\n\n"
-             << "##############################################" << endl
-             << "#         Choose your departing based on:    #" << endl
-             << "#--------------------------------------------#" << endl
-             << "#                                            #" << endl
-             << "#        Select a valid option:              #" << "\n"
-             << "#        1 -> Airport                        #" << endl
-             << "#        2 -> City                           #" << endl
-             << "#        3 -> Coordinates                    #" << endl
-             << "#        B -> Back to the previous Menu      #" << "\n"
-             << "#                                            #" << endl
-             << "##############################################" << "\n\n"
-             << "Option: ";
-
-        cin >> partida;
-
-        if (partida == "b" or partida == "B") {
-            init();
-        }
-
-        else {
-            departure (partida);
-        }
-
-
-        cin >> destino;
-    }
-}
-
 set<Airport> Menu::Coordinates() {
     cout << "What are the coordinates of the location?" << "\n";
     string inp;
@@ -235,41 +170,46 @@ set<Airport> Menu::Coordinates() {
     }
     return closestAirports;
 }
-
-string city() {
+set<Airport> Menu::city() {
+    set<Airport> airports;
     cout<<"What is the city of the location?"<<'\n';
     string inp;
     cin>>inp;
-    if(inp=="B" or inp=="b"){
+    /*if(inp=="B" or inp=="b"){
         bestOptionSetter();
-    }
+    }*/
     for(auto airport:reader->getAirports()){
         if(airport.getCity()==inp){
-            return inp;
+            airports.insert(airport);
         }
     }
-    cout << "No city was found with name " << inp << "." << "\n";
-    city();
+    if(airports.empty()){
+        cout << "No city was found with name " << inp << "." << "\n";
+        city();
+    }
+    return airports;
 }
-Airport Menu::Airports() {
+set<Airport> Menu::Airports() {
     cout<<"What is the airport of the location?"<<'\n';
     string inp;
     cin>>inp;
-    if (inp == "B" or inp == "b"){
+    set<Airport> airports;
+    /*if (inp == "B" or inp == "b"){
         bestOptionSetter();
-    }
+    }*/
     for(auto airport:reader->getAirports()){
         if(airport.getCode()==inp){
-            return airport;
+            airports.insert(airport);
         }
     }
-    cout<<"No airport was found with code "<<inp<<"."<<'\n';
-    Airport();
+    if(airports.empty()){
+        cout << "No airport was found with code " << inp << "." << "\n";
+        Airports();
+    }
+    return airports;
 }
 
-void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &departing,set<Airport> &destination){
-    bool minimumAirlines = false;
-    bool neutral = false;
+void Menu::bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination){
     bool departingsubmenus = true;
 
     while(departingsubmenus) {
@@ -361,8 +301,11 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
 
         cin >> inp2;
         if (inp2 == "1") {
-            minimumAirlines = true;
+            neutral = false;
             airlinessubmenu = false;
+            /*
+            minimumAirlines = true;
+            airlinessubmenu = false;*/
         }
 
         else if (inp2 == "2"){
@@ -371,6 +314,8 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
         }
 
         else if (inp2 == "3"){
+            neutral=true;
+            /*
             bool found=false;
             cout<<"Insert the airlines the code of the airlines you have preference (insert 0 to stop): "<<'\n';
             string inp3;
@@ -387,89 +332,126 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
                 if(!found){
                     cout << "No airline was found with code "<< inp2 << "." << "\n";
                 }
-            }
+            }*/
             airlinessubmenu=false;
         }
         else {
             cout << "\nInsert a valid input. \n\n";
-            airlinessubmenu = false;
+            airlinessubmenu = true;
         }
     }
 }
+bool dfsFindPathsToNode(Vertex<Airport>* current, Vertex<Airport>* end, vector<Vertex<Airport>*>& currentPath, set<vector<Vertex<Airport>*>>& paths, set<Vertex<Airport>*>& visited) {
+    visited.insert(current);
+    currentPath.push_back(current);
 
+    if (current == end) {
+        paths.insert(currentPath);
+    } else {
+        for (auto flight : current->getAdj()) {
+            auto next = flight.getDest();
 
-void findingDestination(Vertex<Airport> *v, set<tuple<Airport,Airport>> &path,vector<set<tuple<Airport,Airport>>> &journey, Airport destination ,set<Airport> &visited){
-    auto adj=v->getAdj();
-    for(auto it=adj.begin();it!=adj.end();it++){
-        if(it->getDest()->getInfo().getCode()==destination.getCode()){
-            auto prov=make_tuple(v->getInfo(),it->getDest()->getInfo());
-            path.insert(prov);
-            journey.push_back(path);
-        }
-        else{
-            auto prov=make_tuple(v->getInfo(),it->getDest()->getInfo());
-            path.insert(prov);
-            findingDestination(it->getDest(),path,journey,destination,visited);
+            if (visited.find(next) == visited.end()) {
+                dfsFindPathsToNode(next, end, currentPath, paths, visited);
+            }
         }
     }
+
+    visited.erase(current);
+    currentPath.pop_back();
+    return false;  // Always return false to continue the search for other paths
 }
-void Menu::bestOption(){
+struct CompareVectors {
+    bool operator()(const vector<Vertex<Airport>*>& lhs, const vector<Vertex<Airport>*>& rhs) const {
+        return lhs.size() < rhs.size();
+    }
+};
+/*struct CompareVectorsAirlines{
+    bool operator()(const vector<Vertex<Airport>*>& lhs, const vector<Vertex<Airport>*>& rhs) const {
+        set<string> airlineslhs;
+        set<string> airlinesrhs;
+        for(auto it=lhs.begin();it!=lhs.end();it++){
+            if(it!=lhs.begin()){
+                airlineslhs.insert((*it)->getAdj().begin()->getAirline().getCode());
+            }
+        }
+        for(auto it=rhs.begin();it!=rhs.end();it++){
+            if(it!=rhs.begin()){
+                airlinesrhs.insert((*it)->getAdj().begin()->getAirline().getCode());
+            }
+        }
+        return airlineslhs.size()<airlinesrhs.size();
+    }
+};*/
+void Menu::bestOption() {
+    bool minimumAirlines = false;
+    bool neutral= false;
     set<string> airlinesPreference;
     set<Airport> departing;
     set<Airport> destination;
-    bestOptionSetter(airlinesPreference,departing,destination);
-    vector<set<tuple<Airport,Airport>>> journey;
-    set<Airport> visited;
+    set<vector<Vertex<Airport> *>> paths;
+    bestOptionSetter(airlinesPreference,minimumAirlines,neutral, departing, destination);
+
+    auto provdeparting = departing.begin();
+    auto provdestination = destination.begin();
 
 
-    for(auto airportDestination:destination) {
-        for (auto airport: departing) {
-            auto airportSource = reader->getGraph().findVertex(airport);
-            set<tuple<Airport, Airport>> path;
-            findingDestination(airportSource, path, journey, airportDestination, visited);
+    Vertex<Airport> *startVertex = reader->getGraph().findVertex(*provdeparting);
+    Vertex<Airport> *endVertex = reader->getGraph().findVertex(*provdestination);
+    /*
+    for(auto it=departing.begin();it!=departing.end();it++){
+        if(it!=departing.begin()){
+            Vertex<Airport> *startVertex=reader->getGraph().findVertex(*it);
+            Vertex<Airport> *endVertex=reader->getGraph().findVertex(*provdestination);
+            vector<Vertex<Airport> *> currentPath;
+            set<Vertex<Airport> *> visited;
+            dfsFindPathsToNode(startVertex, endVertex, currentPath, paths, visited);
         }
-    }
-
-    auto minChanges=1000000000;
-    vector<set<tuple<Airport,Airport>>> bestPaths;
-    set<tuple<Airport,Airport>> bestPath;
+    }*/
 
 
-    for(auto path:journey){
-        if(path.size()<minChanges){
-            minChanges=path.size();
-            bestPath=path;
+
+    vector<Vertex<Airport> *> currentPath;
+    set<Vertex<Airport> *> visited;
+    dfsFindPathsToNode(startVertex, endVertex, currentPath, paths, visited);
+    vector<Vertex<Airport>*> bestOptionflight;
+    bestOptionflight=*paths.begin();
+    if(neutral== true){
+        for(auto path:paths){
+            if(path.size()<bestOptionflight.size()){
+                bestOptionflight=path;
+            }
         }
-    }
-
-    bestPaths.push_back(bestPath);
-
-    for(auto path:journey){
-       if(path.size()==minChanges and path!=bestPath){
-           bestPaths.push_back(path);
-       }
-    }
-
-    cout<<"The best Options to your trip is  "<<'\n';
-
-    int count=1;
-
-
-    for(auto path:bestPaths){
-    cout<<"##################"<<count<<"º"<<"####################"<<endl;
-    cout<<"#    Departing   |   Arriving   |   Airline  #"<<endl;
-    cout<<"#--------------------------------------------#"<<endl;
-        for(auto tuple:path){
-            cout<<"# "<<setw(10)<<get<0>(tuple).getCode()<<" | "<<setw(10)<<get<1>(tuple).getCode()<<" | "<<" #"<<endl;
-            cout<<"#--------------------#"<<endl;
+    }/*
+    else if(minimumAirlines){
+        set<vector<Vertex<Airport>*>,CompareVectors> leastStops;
+        set<vector<Vertex<Airport>*>> leastAirlines;
+        for(auto it=paths.begin();it!=paths.end();it++){
+            leastStops.insert(*it);
         }
-        cout<<"##############################################"<<endl;
-        count++;
-    }
 
+    }*/
+    cout<<"The best option of flight for you is:"<<'\n';
+    cout<<"########################################################################"<<'\n';
+    cout<<"#          |       Departure       |        Arrival        |  Airline  #"<<'\n';
+    int i=1;
+    for(auto best:bestOptionflight){
+        cout<<"#--------------------------------------------------------------------#"<<'\n';
+        cout<<"#  "<<"Flight "<<i<<"| "<<setw(21)<<best->getInfo().getCode()<<" | "<<setw(22)<<best->getAdj().begin()->getDest()->getInfo().getCode()<<"|"<<setw(10)<<"#"<<'\n';
+        i++;
+    }
+    cout<<"######################################################################"<<'\n';
 }
-*/
 
+set<string> airlinesAvalible(Vertex <Airport> *source,Vertex <Airport> *destination){
+    set<string> airlines;
+    for(auto it=source->getAdj().begin();it!=source->getAdj().end();it++){
+        if(it->getDest()==destination){
+            airlines.insert(it->getAirline().getCode());
+        }
+    }
+    return airlines;
+}
 
 //--------------------------------STATISTICS----------------------------------------//
 
