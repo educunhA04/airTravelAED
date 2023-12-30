@@ -37,10 +37,11 @@ void Menu::init() {
 
         if (inp == "1") {information();}
         else if (inp == "2") {statistics();}
+        /*
         else if (inp == "3") {
             bestOption();
         }
-
+        */
         else if (inp == "E" or inp == "e") {exit(0);}
         else {
             cout << "\n Insert a valid input. \n\n";
@@ -195,7 +196,7 @@ void Menu::bestOption() {
 
         cin >> destino;
     }
-}*/
+}
 
 set<Airport> Menu::Coordinates() {
     cout << "What are the coordinates of the location?" << "\n";
