@@ -26,8 +26,9 @@ void Menu::init() {
         cout <<"##############################" << "\n"
              <<"#     Select an option:      #" << "\n"
              <<"#----------------------------#" << "\n"
-             <<"#   1 -> Consult Info        #"<< '\n'
+             <<"#   1 -> Consult Info        #" << "\n"
              <<"#   2 -> Consult Statistics  #" << "\n"
+             <<"#   3 -> Best Flight Option  #" << "\n"
              <<"#   E -> EXIT                #" << "\n"
              <<"#                            #" << "\n"
              <<"##############################" << "\n\n"
@@ -36,6 +37,10 @@ void Menu::init() {
 
         if (inp == "1") {information();}
         else if (inp == "2") {statistics();}
+        else if (inp == "3") {
+            bestOption();
+        }
+
         else if (inp == "E" or inp == "e") {exit(0);}
         else {
             cout << "\n Insert a valid input. \n\n";
@@ -53,7 +58,6 @@ void Menu::information() {
                          <<"#         Select a valid option:            #" << "\n"
                          <<"#         1 -> Airports list                #"<< endl
                          <<"#         2 -> Airlines list                #" << endl
-                         <<"#         3 -> Best Flight Option           #" << "\n"
                          <<"#         B -> Back to the previous Menu    #"<<"\n"
                          <<"#                                           #"<< endl
                          <<"#############################################" << "\n\n"
@@ -65,9 +69,7 @@ void Menu::information() {
         else if (inp == "2") {
             showAirlines();
         }
-        else if (inp == "3") {
-            bestOption();
-        }
+
         else if (inp == "B" or inp == "b") {
             init();
         }
@@ -111,7 +113,8 @@ void Menu::showAirlines() {
 }
 //--------------------------------------BEST OPTION------------------------------------------//
 
-double haversine(double lat1, double lon1, double lat2, double lon2) {//function to calculate the distance between two points
+double haversine(double lat1, double lon1, double lat2, double lon2) {
+    //function to calculate the distance between two points
     const double R = 6371.0;
 
     lat1 = lat1 * M_PI / 180.0;
@@ -130,21 +133,86 @@ double haversine(double lat1, double lon1, double lat2, double lon2) {//function
     return distance;
 }
 
+/*
+void Menu::bestOptionChooseDest() {
+    string destino;
+
+    while (true) {
+        cout << "\n\n"
+             << "##############################################" << endl
+             << "#      Choose your destination based on:     #" << endl
+             << "#--------------------------------------------#" << endl
+             << "#                                            #" << endl
+             << "#        Select a valid option:              #" << "\n"
+             << "#        1 -> Airport                        #" << endl
+             << "#        2 -> City                           #" << endl
+             << "#        3 -> Coordinates                    #" << endl
+             << "#        B -> Back to the previous Menu      #" << "\n"
+             << "#                                            #" << endl
+             << "##############################################" << "\n\n"
+             << "Option: ";
+
+        cin >> destino;
+
+        if (destino == "b" or destino == "B") {
+            init();
+        }
+
+        else {
+            destination(destino);
+        }
+    }
+}
+void Menu::bestOption() {
+    string partida;
+    string destino;
+
+    while (true) {
+        cout << "\n\n"
+             << "##############################################" << endl
+             << "#         Choose your departing based on:    #" << endl
+             << "#--------------------------------------------#" << endl
+             << "#                                            #" << endl
+             << "#        Select a valid option:              #" << "\n"
+             << "#        1 -> Airport                        #" << endl
+             << "#        2 -> City                           #" << endl
+             << "#        3 -> Coordinates                    #" << endl
+             << "#        B -> Back to the previous Menu      #" << "\n"
+             << "#                                            #" << endl
+             << "##############################################" << "\n\n"
+             << "Option: ";
+
+        cin >> partida;
+
+        if (partida == "b" or partida == "B") {
+            init();
+        }
+
+        else {
+            departure (partida);
+        }
+
+
+        cin >> destino;
+    }
+}*/
+
 set<Airport> Menu::Coordinates() {
-    cout<<"What are the coordinates of the location?"<<'\n';
+    cout << "What are the coordinates of the location?" << "\n";
     string inp;
     cout << "\nInsert a valid latitude: " << endl;
     cin >> inp;
     double lat = stod(inp);
+
     if (lat< -90.0 && lat > 90.0){
-        cout<<"Invalid latitude"<<'\n';
+        cout << "Invalid latitude"<< "\n";
         Coordinates();
     }
     cout << "\nInsert a valid longitude: " << endl;
     cin >> inp;
     double lon = stod(inp);
     if(lon < -180.0 && lon > 180.0){
-        cout<<"Invalid longitude"<<'\n';
+        cout << "Invalid longitude" << "\n";
         Coordinates();
     }
 
@@ -152,22 +220,22 @@ set<Airport> Menu::Coordinates() {
     set<Airport> closestAirports;
     double minDistance=10000000;
     Airport closest;
-    for(auto airport:reader->getAirports()){
-        if(haversine(lat,lon,airport.getLatitude(),airport.getLongitude())<minDistance){
-            minDistance=haversine(lat,lon,airport.getLatitude(),airport.getLongitude());
-            closest=airport;
+    for (auto airport:reader->getAirports()){
+        if (haversine(lat,lon,airport.getLatitude(),airport.getLongitude()) < minDistance) {
+            minDistance = haversine(lat,lon,airport.getLatitude(),airport.getLongitude());
+            closest = airport;
         }
     }
     closestAirports.insert(closest);
-    for(auto airport:reader->getAirports()){
-        if(haversine(lat,lon,airport.getLatitude(),airport.getLongitude())==minDistance){
+    for (auto airport:reader->getAirports()){
+        if (haversine(lat,lon,airport.getLatitude(),airport.getLongitude()) == minDistance){
             closestAirports.insert(airport);
         }
     }
     return closestAirports;
 }
 
-string Menu::city() {
+string city() {
     cout<<"What is the city of the location?"<<'\n';
     string inp;
     cin>>inp;
@@ -179,14 +247,14 @@ string Menu::city() {
             return inp;
         }
     }
-    cout<<"No city was found with name "<<inp<<"."<<'\n';
+    cout << "No city was found with name " << inp << "." << "\n";
     city();
 }
 Airport Menu::Airports() {
     cout<<"What is the airport of the location?"<<'\n';
     string inp;
     cin>>inp;
-    if(inp=="B" or inp=="b"){
+    if (inp == "B" or inp == "b"){
         bestOptionSetter();
     }
     for(auto airport:reader->getAirports()){
@@ -202,6 +270,7 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
     bool minimumAirlines = false;
     bool neutral = false;
     bool departingsubmenus = true;
+
     while(departingsubmenus) {
         string inp;
         cout << "\n\n"
@@ -219,18 +288,21 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
              << "Option: ";
 
         cin >> inp;
-        if (inp == "1") { departing=Airports(); departingsubmenus=false; }
-        else if (inp == "2") { departing = city(); departingsubmenus=false;}
-        else if (inp == "3") { departing = Coordinates(); departingsubmenus=false;}
-        else if (inp == "B" || inp == "b") {information();}
+        if (inp == "1") { departing = Airports(); departingsubmenus = false; }
+        else if (inp == "2") { departing = city(); departingsubmenus = false;}
+        else if (inp == "3") { departing = Coordinates(); departingsubmenus = false;}
+        else if (inp == "B" || inp == "b") {
+            information();
+        }
+
         else {
             cout << "\nInsert a valid input. \n\n";
-            departingsubmenus=true;
+            departingsubmenus = true;
         }
     }
 
-
     bool destinationsubmenus = true;
+
     while(destinationsubmenus) {
         string inp1;
         cout << "\n\n"
@@ -246,11 +318,26 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
              << "#                                            #" << endl
              << "##############################################" << "\n\n"
              << "Option: ";
+
         cin >> inp1;
-        if (inp1 == "1") {  destination= Airports(); destinationsubmenus=false; }
-        else if (inp1 == "2") { destination = city(); destinationsubmenus= false; }
-        else if (inp1 == "3") { destination = Coordinates(); destinationsubmenus= false; }
+
+        if (inp1 == "1") {
+            destination = Airports();
+            destinationsubmenus=false;
+        }
+
+        else if (inp1 == "2") {
+            destination = city();
+            destinationsubmenus= false;
+        }
+
+        else if (inp1 == "3") {
+            destination = Coordinates();
+            destinationsubmenus= false;
+        }
+
         else if (inp1 == "B" || inp1 == "b") information();
+
         else {
             cout << "\nInsert a valid input. \n\n";
             destinationsubmenus=true;
@@ -270,23 +357,34 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference,set<Airport> &depart
              << "#                                            #" << endl
              << "##############################################" << "\n\n"
              << "Option: ";
+
         cin >> inp2;
-        if (inp2 == "1") {minimumAirlines= true; airlinessubmenu= false;}
-        else if(inp2=="2"){neutral=true; airlinessubmenu=false;}
-        else if(inp2=="3"){
+        if (inp2 == "1") {
+            minimumAirlines = true;
+            airlinessubmenu = false;
+        }
+
+        else if (inp2 == "2"){
+            neutral = true;
+            airlinessubmenu = false;
+        }
+
+        else if (inp2 == "3"){
             bool found=false;
             cout<<"Insert the airlines the code of the airlines you have preference (insert 0 to stop): "<<'\n';
             string inp3;
             cin>>inp3;
-            while(inp3!="0"){
+
+            while(inp3 != "0"){
                 for(auto airline:reader->getAirlines()){
                     if(airline.getCode()==inp2){
                         airlinesPreference.insert(inp2);
                         found=true;
-                        }
+                    }
                 }
-                if(found==false){
-                    cout<<"No airline was found with code "<<inp2<<"."<<'\n';
+
+                if(!found){
+                    cout << "No airline was found with code "<< inp2 << "." << "\n";
                 }
             }
             airlinessubmenu=false;
@@ -330,16 +428,21 @@ void Menu::bestOption(){
             findingDestination(airportSource, path, journey, airportDestination, visited);
         }
     }
+
     auto minChanges=1000000000;
     vector<set<tuple<Airport,Airport>>> bestPaths;
     set<tuple<Airport,Airport>> bestPath;
+
+
     for(auto path:journey){
         if(path.size()<minChanges){
             minChanges=path.size();
             bestPath=path;
         }
     }
+
     bestPaths.push_back(bestPath);
+
     for(auto path:journey){
        if(path.size()==minChanges and path!=bestPath){
            bestPaths.push_back(path);
@@ -347,7 +450,10 @@ void Menu::bestOption(){
     }
 
     cout<<"The best Options to your trip is  "<<'\n';
+
     int count=1;
+
+
     for(auto path:bestPaths){
     cout<<"##################"<<count<<"º"<<"####################"<<endl;
     cout<<"#    Departing   |   Arriving   |   Airline  #"<<endl;
@@ -361,6 +467,8 @@ void Menu::bestOption(){
     }
 
 }
+*/
+
 
 //--------------------------------STATISTICS----------------------------------------//
 
@@ -707,7 +815,7 @@ void Menu::flightsCities() { //Number of flights per a city
         for(auto current:adj){
             auto prov=make_tuple(airport->getInfo().getCity(),current.getDest()->getInfo().getCity(),current.getAirline().getName());
         }
-        cout<<"The number of flights arriving and departing from "<<airport->getInfo().getCity()<<" is "<<flight.size()<<'\n\n';
+        cout<<"The number of flights arriving and departing from "<<airport->getInfo().getCity()<<" is "<<flight.size()<<"\n\n";
         cout<<"######################################################"<<'\n';
         cout<<"#    Do you want to see the flights arriving from    #"<<'\n';
         cout<<"#    the city and the respective airline?            #"<<endl;
