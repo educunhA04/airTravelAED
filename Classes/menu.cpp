@@ -189,7 +189,7 @@ set<Airport> Menu::city() {
     }
     return airports;
 }
-set<Airport> Menu::Airports() {
+set<Airport> Menu::AirportsChoice() {
     cout<<"What is the airport of the location?"<<'\n';
     string inp;
     cin>>inp;
@@ -229,12 +229,10 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlin
              << "Option: ";
 
         cin >> inp;
-        if (inp == "1") { departing = Airports(); departingsubmenus = false; }
+        if (inp == "1") { departing = AirportsChoice(); departingsubmenus = false; }
         else if (inp == "2") { departing = city(); departingsubmenus = false;}
         else if (inp == "3") { departing = Coordinates(); departingsubmenus = false;}
-        else if (inp == "B" || inp == "b") {
-            information();
-        }
+        else if (inp == "B" || inp == "b") {information();}
 
         else {
             cout << "\nInsert a valid input. \n\n";
@@ -262,23 +260,10 @@ void Menu::bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlin
 
         cin >> inp1;
 
-        if (inp1 == "1") {
-            destination = Airports();
-            destinationsubmenus=false;
-        }
-
-        else if (inp1 == "2") {
-            destination = city();
-            destinationsubmenus= false;
-        }
-
-        else if (inp1 == "3") {
-            destination = Coordinates();
-            destinationsubmenus= false;
-        }
-
+        if (inp1 == "1") {destination =AirportsChoice();destinationsubmenus=false;}
+        else if (inp1 == "2") {destination = city();destinationsubmenus= false;}
+        else if (inp1 == "3") {destination = Coordinates();destinationsubmenus= false;}
         else if (inp1 == "B" || inp1 == "b") information();
-
         else {
             cout << "\nInsert a valid input. \n\n";
             destinationsubmenus=true;
@@ -567,17 +552,18 @@ void Menu::flights() {
     string inp;
     while (true) {
     cout<<"\n\n"
-             <<"################ Flight Statistics #############" << endl
-             <<"#  Select a valid option:                      #" << "\n"
-             <<"#----------------------------------------------#"<<endl
-             <<"#  1 -> Total number of flights                #" << endl
-             <<"#  2 -> Statistics related to a airport        #" << endl
-             <<"#  3 -> Statistics related to a city           #" << endl
-             <<"#  4 -> Statistics related to a country        #" << endl
-             <<"#  5 -> Statistics related to a airline        #" << endl
-             <<"#  B -> Back to the previous Menu              #"<<'\n'
-             <<"#                                              #"<<endl
-             <<"################################################"<<endl
+             <<"################ Flight Statistics ##############" << endl
+             <<"#  Select a valid option:                       #" << "\n"
+             <<"#-----------------------------------------------#"<<endl
+             <<"#  1 -> Total number of flights                 #" << endl
+             <<"#  2 -> Statistics related to a airport         #" << endl
+             <<"#  3 -> Statistics related to a city            #" << endl
+             <<"#  4 -> Statistics related to a country         #" << endl
+             <<"#  5 -> Statistics related to a airline         #" << endl
+             <<"#  6 -> Maximum trip (greatest number of stops) #" << endl
+             <<"#  B -> Back to the previous Menu               #" << endl
+             <<"#                                               #" << endl
+             <<"#################################################" << endl
              << "Option: ";
         cin >> inp;
         if (inp == "1") numFlights();
@@ -585,7 +571,121 @@ void Menu::flights() {
         if (inp == "3") flightsCities();
         if (inp == "4") flightsCountries();
         if (inp == "5") flightsAirlines();
+        if (inp == "6") maxFlight();
         if (inp == "b" or inp == "B") statistics();
+        else {
+            cout << "\nInsert a valid input. \n\n";
+            cin.clear();
+        }
+    }
+}
+void Menu::dfsVisit(Vertex<Airport>* v, int currentStops, set<tuple<Airport, Airport, int>>& stopPairs, Vertex<Airport>* v2) {
+    v->setVisited(true);
+    for (auto edge : v->getAdj()) {
+        auto dest = edge.getDest();
+        if (!dest->isVisited()) {
+            currentStops++;
+            dfsVisit(dest, currentStops, stopPairs, v2);
+        }
+        stopPairs.insert({v2->getInfo(), dest->getInfo(), currentStops + 1});
+    }
+}
+void Menu::maxFlight() {
+    string inp;
+    while (true) {
+        cout<<"\n\n"
+            <<"################ Flight Statistics ##############" << endl
+            <<"#  Select a valid option:                       #" << endl
+            <<"#-----------------------------------------------#" << endl
+            <<"#  1 -> All the airports                        #" << endl
+            <<"#  2 -> Specific airport                        #" << endl
+            <<"#  B -> Back to the previous Menu               #" << endl
+            <<"#                                               #" << endl
+            <<"#################################################" << endl
+            << "Option: ";
+        cin >> inp;
+
+        if (inp == "1") {
+            set<tuple<Airport, Airport, int>> stopPairs;
+            vector<Vertex<Airport> *> allAirports = reader->getGraph().getVertexSet();
+
+            for (auto airport : allAirports) {
+                airport->setVisited(false);
+            }
+
+            for (auto airport: allAirports) {
+                dfsVisit(airport,0, stopPairs, airport);
+            }
+
+
+            cout << "The maximum trip, with the greatest number of stops is: \n";
+            string partida;
+            string destino;
+            int stops;
+            int max = 0;
+            for (auto p : stopPairs) {
+                stops = get<2>(p);
+                if (stops > max) {
+                    partida = get<0>(p).getName();
+                    destino = get<1>(p).getName();
+                    max = stops;
+                }
+            }
+
+            cout << partida << " --> " << destino << " | stops: " << max << endl;
+        }
+
+        else if (inp == "2") {
+            string inp;
+            cout << "\nInsert a valid airport IATA code: ";
+            cin >> inp;
+            inp = toUpperSTR(inp);
+            bool found = false;
+
+            for (auto i: reader->getAirports()) {
+                if (i.getCode() == inp) {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                cout << "\nNo airport was found with code: " << inp << endl;
+                maxFlight();
+            }
+
+            set<tuple<Airport, Airport, int>> stopPairs;
+            vector<Vertex<Airport> *> allAirports = reader->getGraph().getVertexSet();
+            Vertex<Airport>* air;
+            for (auto airport : allAirports) {
+                airport->setVisited(false);
+                if (airport->getInfo().getCode() == inp) {
+                    air = airport;
+                }
+
+            }
+
+
+            dfsVisit(air,0, stopPairs, air);
+
+
+            cout << "The maximum trip, with the greatest number of stops is: \n";
+            string partida;
+            string destino;
+            int stops;
+            int max = 0;
+            for (auto p : stopPairs) {
+                stops = get<2>(p);
+                if (stops > max) {
+                    partida = get<0>(p).getName();
+                    destino = get<1>(p).getName();
+                    max = stops;
+                }
+            }
+
+            cout << partida << " --> " << destino << " | stops: " << max << endl;
+        }
+
+        else if (inp == "b" or inp == "B") statistics();
         else {
             cout << "\nInsert a valid input. \n\n";
             cin.clear();
@@ -1041,9 +1141,9 @@ void Menu::specificAirport() {
                  << "#  2 -> Number of available destination airport              #" << endl
                  << "#  3 -> Number of available destination countries            #" << endl
                  << "#  4 -> Number of available destination cities               #" << endl
-                 << "#  B -> Back to the previous Menu                            #"<<'\n'
-                 << "#                                                            #"<<endl
-                 << "##############################################################"<<endl
+                 << "#  B -> Back to the previous Menu                            #" << endl
+                 << "#                                                            #" << endl
+                 << "##############################################################" << endl
                  << "Option: ";
             cin >> inp;
             if (inp == "1") numDest();

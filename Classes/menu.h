@@ -17,12 +17,8 @@ private:
     //helper functions//
     set<Airport> city(); // DONE
     set<Airport> Coordinates(); // DONE
-    set<Airport> Airports(); // DONE
-    /*
-    void destination(string num);
-    void departure(string num);
-    void bestOptionChooseDest();
-     */
+    Airport Airports(); // DONE
+    set<Airport> AirportsChoice();
     //statistics menu//
     void statistics(); // DONE
 
@@ -31,6 +27,9 @@ private:
     void numAirports(); // DONE
     void airportTrafMax(); // DONE
     void importantAirport(); // DONE
+    void maxFlight();
+    void calculateMax(string num);
+    void dfsVisit(Vertex<Airport>* v, int currentStops, set<tuple<Airport, Airport, int>>& stopPairs, Vertex<Airport>* v2);
 
     //specific airport statistics//
     void specificAirport();
