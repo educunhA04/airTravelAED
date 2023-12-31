@@ -11,6 +11,8 @@ private:
     void showAirlines(); // DONE
     void bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // TODO
     void bestOption(); // TODO
+    set<string> airlinesAvailable( Vertex<Airport>*source, Vertex<Airport>*destination );
+    vector<tuple<string, string, string>>  airlinesChoiceMinimum(vector<Vertex<Airport>*> path, set<string> &nairlines);
 
     //helper functions//
     set<Airport> city(); // DONE
