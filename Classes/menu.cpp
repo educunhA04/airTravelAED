@@ -447,8 +447,6 @@ void Menu::bestOption() {
     }
     cout<<"######################################################################"<<'\n';*/
 }
-
-
 set<string> Menu::airlinesAvailable( Vertex<Airport>* source, Vertex<Airport>* dest ) {
     set<string> airlines;
     for (auto it = source->getAdj().begin(); it != source->getAdj().end(); it++) {
@@ -503,9 +501,6 @@ vector<tuple<string, string, string>>  Menu::airlinesChoiceMinimum(vector<Vertex
     }
     return flightsWAirline;  // Return the set of airlines if needed
 }
-
-
-
 //--------------------------------STATISTICS----------------------------------------//
 
 void Menu::statistics() {
