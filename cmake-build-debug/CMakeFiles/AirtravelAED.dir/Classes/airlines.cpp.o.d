@@ -1,7 +1,7 @@
 CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o: \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.cpp \
+ /home/magui/Documents/AED/airTravelAED/Classes/airlines.cpp \
  /usr/include/stdc-predef.h \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.h \
+ /home/magui/Documents/AED/airTravelAED/Classes/airlines.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

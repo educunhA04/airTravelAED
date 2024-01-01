@@ -1,4 +1,4 @@
-# Install script for directory: /home/magui/Documents/AED/PROJECTS/airTravelAED
+# Install script for directory: /home/magui/Documents/AED/airTravelAED
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/magui/Documents/AED/airTravelAED/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

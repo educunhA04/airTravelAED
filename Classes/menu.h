@@ -9,14 +9,18 @@ private:
     void information(); // DONE
     void showAirports(); // DONE
     void showAirlines(); // DONE
-    void bestOptionSetter(set<string> &airlinesPreference,set<Airport> &departing,set<Airport> &destination); // TODO
+    void bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // DONE
     void bestOption(); // TODO
+    set<string> airlinesAvailable( Vertex<Airport>*source, Vertex<Airport>*destination );
+    vector<tuple<string, string, string>>  airlinesChoiceMinimum(vector<Vertex<Airport>*> path, set<string> &nairlines);
+    vector<tuple<string, string, string>>  airlinesChoicePreference(vector<Vertex<Airport>*> path, set<string> &nairlines ,set<string> airlinesPreference);
+
 
     //helper functions//
     set<Airport> city(); // DONE
     set<Airport> Coordinates(); // DONE
     Airport Airports(); // DONE
-
+    set<Airport> AirportsChoice();
     //statistics menu//
     void statistics(); // DONE
 

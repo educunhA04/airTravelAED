@@ -790,7 +790,6 @@ void Menu::maxFlight() {
     }
     flights();
 }
-
 void Menu::numFlights() {
     int flightsresult = 0;
     for (auto x : reader->getGraph().getVertexSet()){

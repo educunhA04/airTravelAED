@@ -1,5 +1,5 @@
 CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.cpp \
+ /home/magui/Documents/AED/airTravelAED/Classes/read.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/fstream \
  /usr/include/c++/11/istream /usr/include/c++/11/ios \
  /usr/include/c++/11/iosfwd \
@@ -151,10 +151,10 @@ CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/sstream \
  /usr/include/c++/11/bits/sstream.tcc \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.h \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.h \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airport.h \
- /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/Graph.h \
+ /home/magui/Documents/AED/airTravelAED/Classes/read.h \
+ /home/magui/Documents/AED/airTravelAED/Classes/airlines.h \
+ /home/magui/Documents/AED/airTravelAED/Classes/airport.h \
+ /home/magui/Documents/AED/airTravelAED/Classes/Graph.h \
  /usr/include/c++/11/cstddef /usr/include/c++/11/utility \
  /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/vector \
  /usr/include/c++/11/bits/stl_uninitialized.h \
