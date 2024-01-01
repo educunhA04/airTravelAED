@@ -205,7 +205,7 @@ set<Airport> Menu::AirportsChoice() {
     }
     if(airports.empty()){
         cout << "No airport was found with code " << inp << "." << "\n";
-        Airports();
+        AirportsChoice();
     }
     return airports;
 }
@@ -496,7 +496,7 @@ void Menu::bestOption() {
         int i = 1;
         for (auto flight: path) {
             cout << "#--------------------------------------------------------------------#" << '\n';
-            cout << "#  " << "Flight " << i << "| " << setw(21) << get<0>(flight) << " | " << setw(22) << get<1>(flight<< "|" << setw(10) << get<2>(flight) << "#" << '\n';
+            cout << "#  " << "Flight " << i << "| " << setw(21) << get<0>(flight) << " | " << setw(22) << get<1>(flight)<< "|" << setw(10) << get<2>(flight) << "#" << '\n';
             i++;
         }
         cout << "######################################################################" << '\n';
