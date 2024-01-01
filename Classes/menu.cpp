@@ -720,106 +720,75 @@ void Menu::dfsVisit(Vertex<Airport>* v, int currentStops, set<tuple<Airport, Air
     }
 }
 void Menu::maxFlight() {
-    string inp;
-    while (true) {
-        cout<<"\n\n"
-            <<"################ Flight Statistics ##############" << endl
-            <<"#  Select a valid option:                       #" << endl
-            <<"#-----------------------------------------------#" << endl
-            <<"#  1 -> All the airports                        #" << endl
-            <<"#  2 -> Specific airport                        #" << endl
-            <<"#  B -> Back to the previous Menu               #" << endl
-            <<"#                                               #" << endl
-            <<"#################################################" << endl
-            << "Option: ";
-        cin >> inp;
 
-        if (inp == "1") {
-            set<tuple<Airport, Airport, int>> stopPairs;
-            vector<Vertex<Airport> *> allAirports = reader->getGraph().getVertexSet();
+    int max = 0;
 
-            for (auto airport : allAirports) {
-                airport->setVisited(false);
-            }
+    vector<pair<string,string>> res;
 
-            for (auto airport: allAirports) {
-                dfsVisit(airport,0, stopPairs, airport);
-            }
+    string departure;
+    string destination;
 
+    for(auto vertex : reader->getGraph().getVertexSet()){
 
-            cout << "The maximum trip, with the greatest number of stops is: \n";
-            string partida;
-            string destino;
-            int stops;
-            int max = 0;
-            for (auto p : stopPairs) {
-                stops = get<2>(p);
-                if (stops > max) {
-                    partida = get<0>(p).getName();
-                    destino = get<1>(p).getName();
-                    max = stops;
-                }
-            }
-
-            cout << partida << " --> " << destino << " | stops: " << max << endl;
+        for(auto v : reader->getGraph().getVertexSet()) {
+            v->setVisited(false);
         }
 
-        else if (inp == "2") {
-            string inp;
-            cout << "\nInsert a valid airport IATA code: ";
-            cin >> inp;
-            inp = toUpperSTR(inp);
-            bool found = false;
+        queue<pair<Vertex<Airport>*,int>> q;
+        q.push({vertex,0});
+        vertex->setVisited(true);
 
-            for (auto i: reader->getAirports()) {
-                if (i.getCode() == inp) {
-                    found = true;
+        while (!q.empty()){
+            auto front = q.front();
+            q.pop();
+
+            if (front.second > max) {
+                max = front.second;
+            }
+
+            for(auto edge : front.first->getAdj()){
+                auto dest = edge.getDest();
+                if(!dest->isVisited()){
+                    front.second+1;
+                    q.push({dest,front.second});
+                    dest->setVisited(true);
                 }
             }
-
-            if (!found) {
-                cout << "\nNo airport was found with code: " << inp << endl;
-                maxFlight();
-            }
-
-            set<tuple<Airport, Airport, int>> stopPairs;
-            vector<Vertex<Airport> *> allAirports = reader->getGraph().getVertexSet();
-            Vertex<Airport>* air;
-            for (auto airport : allAirports) {
-                airport->setVisited(false);
-                if (airport->getInfo().getCode() == inp) {
-                    air = airport;
-                }
-
-            }
-
-
-            dfsVisit(air,0, stopPairs, air);
-
-
-            cout << "The maximum trip, with the greatest number of stops is: \n";
-            string partida;
-            string destino;
-            int stops;
-            int max = 0;
-            for (auto p : stopPairs) {
-                stops = get<2>(p);
-                if (stops > max) {
-                    partida = get<0>(p).getName();
-                    destino = get<1>(p).getName();
-                    max = stops;
-                }
-            }
-
-            cout << partida << " --> " << destino << " | stops: " << max << endl;
-        }
-
-        else if (inp == "b" or inp == "B") statistics();
-        else {
-            cout << "\nInsert a valid input. \n\n";
-            cin.clear();
         }
     }
+    for(auto vertex : reader->getGraph().getVertexSet()){
+
+        for(auto v : reader->getGraph().getVertexSet()) {
+            v->setVisited(false);
+        }
+
+        queue<pair<Vertex<Airport>*,int>> q;
+        q.push({vertex,0});
+        vertex->setVisited(true);
+        departure = vertex->getInfo().getCode();
+
+        while (!q.empty()){
+            auto front = q.front();
+            q.pop();
+            if(front.second == max){
+                destination = front.first->getInfo().getCode();
+                res.push_back({departure,destination});
+            }
+            for(auto edge : front.first->getAdj()){
+                auto dest = edge.getDest();
+                if(!dest->isVisited()){
+                    front.second+1;
+                    q.push({dest,front.second});
+                    dest->setVisited(true);
+                }
+            }
+        }
+    }
+    cout << "Maximum Trip (Stops): "<< max<<'\n';
+    for(auto p : res){
+        cout << "Departure: " << p.first << " | Destination: " << p.second << "\n";
+    }
+    flights();
 }
 void Menu::numFlights() {
     int flightsresult = 0;
