@@ -1,5 +1,5 @@
 CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o: \
- /home/magui/Documents/AED/airTravelAED/Classes/menu.cpp \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/menu.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -166,11 +166,11 @@ CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o: \
  /usr/include/c++/11/bits/node_handle.h \
  /usr/include/c++/11/bits/unordered_map.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/magui/Documents/AED/airTravelAED/Classes/menu.h \
- /home/magui/Documents/AED/airTravelAED/Classes/read.h \
- /home/magui/Documents/AED/airTravelAED/Classes/airlines.h \
- /home/magui/Documents/AED/airTravelAED/Classes/airport.h \
- /home/magui/Documents/AED/airTravelAED/Classes/Graph.h \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/menu.h \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.h \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.h \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airport.h \
+ /home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/Graph.h \
  /usr/include/c++/11/cstddef /usr/include/c++/11/vector \
  /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_vector.h \

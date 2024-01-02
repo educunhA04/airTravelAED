@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/magui/Documents/AED/airTravelAED/cmake-build-debug"
+			"value" : "/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"
 		},
 		{
 			"name" : "AirtravelAED_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/magui/Documents/AED/airTravelAED"
+			"value" : "/home/magui/Documents/AED/PROJECTS/airTravelAED"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/magui/Documents/AED/airTravelAED/cmake-build-debug"
+			"value" : "/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -663,7 +663,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/magui/Documents/AED/airTravelAED/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -723,7 +723,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/magui/Documents/AED/airTravelAED"
+			"value" : "/home/magui/Documents/AED/PROJECTS/airTravelAED"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",

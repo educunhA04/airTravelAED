@@ -6,15 +6,22 @@
 class Menu {
 private:
     //info menu//
+    struct ComparePaths{
+        bool operator()(const vector<Airport>& path1, const vector<Airport>& path2) const {
+            return path1.size() < path2.size();
+        }
+    };
     void information(); // DONE
     void showAirports(); // DONE
     void showAirlines(); // DONE
+    void bestOptionWOAirSetter(set<Airport> &departing,set<Airport> &destination); // TODO
+    void bestOptionWOAir(); // TODO
     void bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // DONE
     void bestOption(); // TODO
     set<string> airlinesAvailable( Vertex<Airport>*source, Vertex<Airport>*destination );
     vector<tuple<string, string, string>>  airlinesChoiceMinimum(vector<Vertex<Airport>*> path, set<string> &nairlines);
     vector<tuple<string, string, string>>  airlinesChoicePreference(vector<Vertex<Airport>*> path, set<string> &nairlines ,set<string> airlinesPreference);
-
+    bool dfsFindPathsToNode(Airport current, Airport end, vector<Airport>& currentPath, set<vector<Airport>, ComparePaths>& paths, set<Vertex<Airport>*> &visited);
 
     //helper functions//
     set<Airport> city(); // DONE
@@ -66,6 +73,7 @@ public:
     Menu();
     void init();
     static void end();
+
 };
 
 

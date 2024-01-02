@@ -8,11 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/magui/Documents/AED/airTravelAED/Classes/airlines.cpp" "CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o.d"
-  "/home/magui/Documents/AED/airTravelAED/Classes/airport.cpp" "CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o.d"
-  "/home/magui/Documents/AED/airTravelAED/Classes/menu.cpp" "CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o.d"
-  "/home/magui/Documents/AED/airTravelAED/Classes/read.cpp" "CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o.d"
-  "/home/magui/Documents/AED/airTravelAED/main.cpp" "CMakeFiles/AirtravelAED.dir/main.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/main.cpp.o.d"
+  "/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.cpp" "CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/airlines.cpp.o.d"
+  "/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airport.cpp" "CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/airport.cpp.o.d"
+  "/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/menu.cpp" "CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/menu.cpp.o.d"
+  "/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.cpp" "CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/Classes/read.cpp.o.d"
+  "/home/magui/Documents/AED/PROJECTS/airTravelAED/main.cpp" "CMakeFiles/AirtravelAED.dir/main.cpp.o" "gcc" "CMakeFiles/AirtravelAED.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/magui/Documents/AED/airTravelAED/cmake-build-debug",
-		"source" : "/home/magui/Documents/AED/airTravelAED"
+		"build" : "/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug",
+		"source" : "/home/magui/Documents/AED/PROJECTS/airTravelAED"
 	},
 	"version" : 
 	{

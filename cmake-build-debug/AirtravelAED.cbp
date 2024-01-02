@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/magui/Documents/AED/airTravelAED/cmake-build-debug"/>
+				<Option working_dir="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="AirtravelAED">
-				<Option output="/home/magui/Documents/AED/airTravelAED/cmake-build-debug/AirtravelAED" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/magui/Documents/AED/airTravelAED/cmake-build-debug"/>
+				<Option output="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/AirtravelAED" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -33,15 +33,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 AirtravelAED"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 AirtravelAED"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="AirtravelAED/fast">
-				<Option output="/home/magui/Documents/AED/airTravelAED/cmake-build-debug/AirtravelAED" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/magui/Documents/AED/airTravelAED/cmake-build-debug"/>
+				<Option output="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/AirtravelAED" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -55,64 +55,64 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 AirtravelAED/fast"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 AirtravelAED/fast"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/magui/Documents/AED/airTravelAED/cmake-build-debug"/>
+				<Option working_dir="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/magui/Documents/AED/airTravelAED/cmake-build-debug"/>
+				<Option working_dir="/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/magui/Documents/AED/PROJECTS/airTravelAED/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/Graph.h">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/Graph.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/airlines.cpp">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/airlines.h">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airlines.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/airport.cpp">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airport.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/airport.h">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/airport.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/menu.cpp">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/menu.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/menu.h">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/menu.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/read.cpp">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/Classes/read.h">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/Classes/read.h">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/main.cpp">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/main.cpp">
 			<Option target="AirtravelAED"/>
 		</Unit>
-		<Unit filename="/home/magui/Documents/AED/airTravelAED/CMakeLists.txt">
+		<Unit filename="/home/magui/Documents/AED/PROJECTS/airTravelAED/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
