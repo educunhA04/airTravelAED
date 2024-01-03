@@ -16,13 +16,14 @@ private:
     void showAirlines(); // DONE
     void bestOptionWOAirSetter(set<Airport> &departing,set<Airport> &destination); // TODO
     void bestOptionWOAir(); // TODO
-    void bestOptionSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // DONE
+    void bestOptionSWAirSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination); // DONE
     void bestOption(); // TODO
-    set<string> airlinesAvailable( Vertex<Airport>*source, Vertex<Airport>*destination );
-    vector<tuple<string, string, string>>  airlinesChoiceMinimum(vector<Vertex<Airport>*> path, set<string> &nairlines);
-    vector<tuple<string, string, string>>  airlinesChoicePreference(vector<Vertex<Airport>*> path, set<string> &nairlines ,set<string> airlinesPreference);
+    set<string> airlinesAvailable(vector<string>airlines);
+    void bestOptionWAir(); // TODO
+    vector<string> findBestAirlinePreference(vector<Airport> path, set<string> preferenceAirlines);
+    vector<string> findBestAirlineMinimum(vector<Airport> path);
     bool dfsFindPathsToNode(Airport current, Airport end, vector<Airport>& currentPath, set<vector<Airport>, ComparePaths>& paths, set<Vertex<Airport>*> &visited);
-
+    void printairlines(vector<string> airlines, vector<Airport> path);
     //helper functions//
     set<Airport> city(); // DONE
     set<Airport> Coordinates(); // DONE
