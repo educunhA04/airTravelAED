@@ -4,7 +4,7 @@
 #include "menu.h"
 #include <cmath>
 #include <algorithm>
-
+#include <map>
 using namespace std;
 
 Menu::Menu() {
@@ -20,7 +20,12 @@ Menu::Menu() {
     cout << "=  ===(_________D" << "\n\n";
     reader = new Reader();
 }
-
+string toUpperSTR(string str) { /// Function to convert a string to uppercase
+    for (auto &elem: str) {
+        elem = toupper(elem);
+    }
+    return str;
+}
 void Menu::init() {
     string inp;
     while (true) {
@@ -199,11 +204,12 @@ set<Airport> Menu::city() {
     cout<<"What is the city of the location?"<<'\n';
     string inp;
     cin>>inp;
+    string inp1=toUpperSTR(inp);
     /*if(inp=="B" or inp=="b"){
         bestOptionSetter();
     }*/
     for(auto airport:reader->getAirports()){
-        if(airport.getCity()==inp){
+        if(airport.getCity()==inp1){
             airports.insert(airport);
         }
     }
@@ -214,21 +220,23 @@ set<Airport> Menu::city() {
     return airports;
 }
 set<Airport> Menu::AirportsChoice() {
-    cout<<"What is the airport of the location?"<<'\n';
-    string inp;
-    cin>>inp;
     set<Airport> airports;
-    /*if (inp == "B" or inp == "b"){
-        bestOptionSetter();
-    }*/
-    for(auto airport:reader->getAirports()){
-        if(airport.getCode()==inp){
-            airports.insert(airport);
+    bool v = true;
+    while(v==true){
+        cout<<"What is the airport of the location?"<<'\n';
+        string inp;
+        cin>>inp;
+        string inp1=toUpperSTR(inp);
+
+        for(auto airport:reader->getAirports()){
+            if(airport.getCode()==inp1){
+                airports.insert(airport);
+                v=false;
+            }
         }
-    }
-    if(airports.empty()){
-        cout << "No airport was found with code " << inp << "." << "\n";
-        AirportsChoice();
+        if(airports.empty()){
+            cout << "No airport was found with code " << inp << "." << "\n";
+        }
     }
     return airports;
 }
@@ -311,7 +319,6 @@ void Menu::bestOptionWOAir() {
         bestOption();
     } else {
         int i = 1;
-        while (v) {
             int size = paths.begin()->size();
             for (auto current: paths) {
                 cout << "+----------+--------------------------------+--------------------------------+" << endl;
@@ -327,11 +334,13 @@ void Menu::bestOptionWOAir() {
                              << endl;
                     }
                 }
+                else{
+                    break;
+                }
                 i++;
             }
         }
     }
-}
 void Menu::bestOptionSWAirSetter(set<string> &airlinesPreference, bool &minimumAirlines,bool &neutral, set<Airport> &departing,set<Airport> &destination){
     bool departingsubmenus = true;
 
@@ -422,18 +431,19 @@ void Menu::bestOptionSWAirSetter(set<string> &airlinesPreference, bool &minimumA
             cout<<"Insert the airlines the code of the airlines you have preference (insert 0 to stop): "<<'\n';
             string inp3;
             cin>>inp3;
-
-            while(inp3 != "0"){
+            while(inp3!="0"){
                 for(auto airline:reader->getAirlines()){
-                    if(airline.getCode()==inp2){
-                        airlinesPreference.insert(inp2);
+                    if(airline.getCode()==inp3){
+                        airlinesPreference.insert(inp3);
                         found=true;
                     }
                 }
 
                 if(!found){
-                    cout << "No airline was found with code "<< inp2 << "." << "\n";
+                    cout << "No airline was found with code "<< inp3 << "." << "\n";
+                    airlinessubmenu=true;
                 }
+                cin>>inp3;
             }
             airlinessubmenu=false;
         }
@@ -443,46 +453,8 @@ void Menu::bestOptionSWAirSetter(set<string> &airlinesPreference, bool &minimumA
         }
     }
 }
-vector<string> Menu::findBestAirlineMinimum(vector<Airport> path){
-    vector <string> result;
-    unordered_map<string, int> airlines;
-    for(auto i=0;i<path.size();i++){
-        auto current=path[i];
-        auto next=path[i+1];
-        for(auto edge:reader->getGraph().findVertex(current)->getAdj()){
-            if(edge.getDest()->getInfo()==next){
-                if(airlines.find(edge.getAirline().getCode())==airlines.end()){
-                    airlines[edge.getAirline().getCode()]=1;
-                }
-                else{
-                    airlines[edge.getAirline().getCode()]++;
-                }
-            }
-        }
-    }
-    struct CompareAirlines {
-        const unordered_map<string, int>& airlinesAvailableMap;
-
-        CompareAirlines(const unordered_map<string, int>& airlinesMap): airlinesAvailableMap(airlinesMap) {}
-
-        bool operator()(const string& lhs, const string& rhs) const {
-            return airlinesAvailableMap.at(lhs) < airlinesAvailableMap.at(rhs);
-        }
-    };
-    for(auto i=0;i<path.size();i++) {
-        auto current = path[i];
-        auto next = path[i + 1];
-        set<string, CompareAirlines> airlines;
-        auto source = reader->getGraph().findVertex(current);
-
-        for (auto edge: source->getAdj()) {
-            if (edge.getDest()->getInfo().getCode() == next.getCode()) {
-                airlines.insert(edge.getAirline().getCode());
-            }
-        }
-        result.push_back(*airlines.begin());
-    }
-    return result;
+bool sortByValue(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+    return a.second < b.second;
 }
 void Menu::bestOptionWAir(){
     set<Airport> departing;
@@ -499,7 +471,7 @@ void Menu::bestOptionWAir(){
             dfsFindPathsToNode(*it, *it1, currentPath, paths, visited);
         }
     }
-    bool v = true;
+
     if (paths.empty()) {
         cout << "There are no connections between the departing and destination airports." << '\n';
         bestOption();
@@ -541,13 +513,55 @@ void Menu::bestOptionWAir(){
         printairlines(airlinesbest,*bestpath);
     }
 }
+vector<string> Menu::findBestAirlineMinimum(vector<Airport> path){
+    cout<<"find best airline minimum"<<endl;
+    vector <string> result;
+
+    map<string, int> airlines;
+    for(auto i=0;i<path.size()-1;i++){
+        auto current=path[i];
+        auto next=path[i+1];
+        for(auto edge:reader->getGraph().findVertex(current)->getAdj()){
+            if(edge.getDest()->getInfo()==next){
+                if(airlines.find(edge.getAirline().getCode())==airlines.end()){
+                    airlines[edge.getAirline().getCode()]=1;
+                }
+                else{
+                    airlines[edge.getAirline().getCode()]++;
+                }
+            }
+        }
+    }
+    vector<pair<string, int>> airlinesVector(airlines.begin(), airlines.end());
+    sort(airlinesVector.begin(), airlinesVector.end(), sortByValue);
+
+    for(auto i=0;i<path.size()-1;i++) {
+        auto current = path[i];
+        auto next = path[i + 1];
+        set<string> airlines;
+        auto source = reader->getGraph().findVertex(current);
+
+        for (auto edge: source->getAdj()) {
+            if (edge.getDest()->getInfo().getCode() == next.getCode()) {
+                airlines.insert(edge.getAirline().getCode());
+            }
+        }
+        for(auto air:airlinesVector){
+            if(airlines.find(air.first)!=airlines.end()){
+                result.push_back(air.first);
+                break;
+            }
+        }
+    }
+    return result;
+}
 void Menu::printairlines(vector<string> airlines, vector<Airport> path){
     cout << "+----------+--------------------------------+--------------------------------+--------------------------------+" << endl;
     cout << "|          |           Departure            |              Arrival           |              Airlines          |"<< endl;
     cout << "+----------+--------------------------------+--------------------------------+--------------------------------+" << endl;
 
     for (int l = 0; l < path.size() - 1; l++) {
-        cout << "|    " << l + 1 << "       |" << std::setw(30) << path[l].getCode() << " | "<< std::setw(30) << path[l + 1].getCode() <<std::setw(30) << airlines[l]<<" | " << endl;
+        cout << "|    " << l + 1 << "       |" << std::setw(30) << path[l].getCode() << " | "<< std::setw(30) << path[l + 1].getCode() <<" | "<<std::setw(30) << airlines[l]<<" | " << endl;
         cout << "+----------+--------------------------------+--------------------------------+--------------------------------+" << endl;
     }
 }
@@ -582,9 +596,9 @@ set<string> Menu::airlinesAvailable(vector<string>airlines){
     return airlinesSet;
 }
 vector<string> Menu::findBestAirlinePreference(vector<Airport> path, set<string> preferenceAirlines){
-    unordered_map<string, int> otherairlinesMap;
-    unordered_map<string, int> preferenceairlinesMap;
-    for(auto i=0;i<path.size();i++){
+    map<string, int> otherairlinesMap;
+    map<string, int> preferenceairlinesMap;
+    for(auto i=0;i<path.size()-1;i++){
         auto current=path[i];
         auto next=path[i+1];
         for(auto edge:reader->getGraph().findVertex(current)->getAdj()){
@@ -608,38 +622,31 @@ vector<string> Menu::findBestAirlinePreference(vector<Airport> path, set<string>
             }
         }
     }
-    struct CompareCombinedAirlines {
-        const std::unordered_map<std::string, int>& otherAirlinesMap;
-        const std::unordered_map<std::string, int>& preferenceAirlinesMap;
-
-        CompareCombinedAirlines(
-                const std::unordered_map<std::string, int>& airlinesMap,
-                const std::unordered_map<std::string, int>& preferenceAirlinesMap)
-                : otherAirlinesMap(airlinesMap), preferenceAirlinesMap(preferenceAirlinesMap) {}
-
-        bool operator()(const std::string& lhs, const std::string& rhs) const {
-            // First, compare based on preference
-            if (preferenceAirlinesMap.at(lhs) != preferenceAirlinesMap.at(rhs)) {
-                return preferenceAirlinesMap.at(lhs) < preferenceAirlinesMap.at(rhs);
-            }
-
-            // If preference is the same, compare based on the general order
-            return otherAirlinesMap.at(lhs) < otherAirlinesMap.at(rhs);
-        }
-    };
+    vector<pair<string, int>> airlinesVector(preferenceairlinesMap.begin(), preferenceairlinesMap.end());
+    sort(airlinesVector.begin(), airlinesVector.end(), sortByValue);
+    vector<pair<string,int>> otherairlinesVector(otherairlinesMap.begin(), otherairlinesMap.end());
+    sort(otherairlinesVector.begin(), otherairlinesVector.end(), sortByValue);
+    vector<pair<string,int>> finalVector=airlinesVector;
+    for(auto n:otherairlinesVector){
+        finalVector.push_back(n);
+    }
     vector<string> result;
-    for(auto i=0;i<path.size();i++) {
+    for(auto i=0;i<path.size()-1;i++) {
         auto current = path[i];
         auto next = path[i + 1];
-        set<string, CompareCombinedAirlines> airlines;
+        set<string> airlines;
         auto source = reader->getGraph().findVertex(current);
-
         for (auto edge: source->getAdj()) {
             if (edge.getDest()->getInfo().getCode() == next.getCode()) {
                 airlines.insert(edge.getAirline().getCode());
             }
         }
-        result.push_back(*airlines.begin());
+        for(auto air:finalVector){
+            if(airlines.find(air.first)!=airlines.end()){
+                result.push_back(air.first);
+                break;
+            }
+        }
     }
     return result;
 }
@@ -677,12 +684,7 @@ void Menu::statistics() {
         }
     }
 }
-string toUpperSTR(string str) { /// Function to convert a string to uppercase
-    for (auto &elem: str) {
-        elem = toupper(elem);
-    }
-    return str;
-}
+
 
 //--------------------------------------------- FLIGHTS STATISTIC ------------------------------------------------//
 void Menu::flights() {
@@ -1818,6 +1820,7 @@ void Menu::airportTrafMax() { // airport with the biggest number of flights (als
     airportsStat();
 }
 struct CompareFlights {
+
     bool operator()(const pair<string, int>& a, const pair<string, int>& b) const {
         return a.second > b.second;
     }
@@ -1869,293 +1872,4 @@ void Menu::importantAirport() {
 void Menu::end() {
     cout << "----------------------------------------------" << endl;
 }
-/*void Menu::bestOption() {
-    bool minimumAirlines = false;
-    bool neutral = false;
-    set<string> airlinesPreference;
-    set<Airport> departing;
-    set<Airport> destination;
-    set<vector<Vertex<Airport> *>> paths;
-    bestOptionSetter(airlinesPreference, minimumAirlines, neutral, departing, destination);
 
-    auto provdeparting = departing.begin();
-    auto provdestination = destination.begin();
-
-
-    Vertex<Airport> *startVertex = reader->getGraph().findVertex(*provdeparting);
-    Vertex<Airport> *endVertex = reader->getGraph().findVertex(*provdestination);
-    /*
-    for(auto it=departing.begin();it!=departing.end();it++){
-        if(it!=departing.begin()){
-            Vertex<Airport> *startVertex=reader->getGraph().findVertex(*it);
-            Vertex<Airport> *endVertex=reader->getGraph().findVertex(*provdestination);
-            vector<Vertex<Airport> *> currentPath;
-            set<Vertex<Airport> *> visited;
-            dfsFindPathsToNode(startVertex, endVertex, currentPath, paths, visited);
-        }
-    }*/
-
-/*   //------------------------------------AQUI VAMOS TER TODOS OS PATHS POSSIVEIS----------------------//
-   vector<Vertex<Airport> *> currentPath;
-   set<Vertex<Airport> *> visited;
-   dfsFindPathsToNode(startVertex, endVertex, currentPath, paths, visited);
-   //----------------------------------------------------------------------------------------------//
-   vector<vector<tuple<string, string, string>>> bestoptionsvectorfinal;
-   set<vector<Vertex<Airport> *>, CompareVectors> leastStops;
-   vector<Vertex<Airport> *> bestOptionflight;
-   bestOptionflight = *paths.begin();
-   //---------------------------------LEAST STOPS--------------------------------------//
-   //-------------------------FALTA IMPLEMENTAR AS AIRLINES DESTE---------------------//
-   if (neutral == true) {
-       //------------------------VÊ QUAL A MELHOR OPÇÃO E AS OPÇÕES ESTÃO ORGANIZADAS POR NÚMERO DE AIRLINES-------------//
-       for (auto path: paths) {
-           if (path.size() < bestOptionflight.size()) {
-               bestOptionflight = path;
-           }
-       }
-       leastStops.insert(bestOptionflight);
-       for (auto path: paths) {
-           if (path.size() == bestOptionflight.size()) {
-               leastStops.insert(path);
-           }
-       }
-       vector<vector<tuple<string, string, string>>> bestoptionsvector;
-       vector<tuple<string, string, string>> bestOptionN;
-       vector<tuple<string, string, string>> prov;
-       set<string> nairlines;
-       int minimumsize;
-       auto a = paths.begin();
-       bestOptionN = airlinesChoiceMinimum(*paths.begin(), nairlines);
-       for (auto path: paths) {
-           nairlines.clear();
-           prov = airlinesChoiceMinimum(path, nairlines);
-           if (minimumsize > nairlines.size()) {
-               bestOptionN = prov;
-               minimumsize = nairlines.size();
-           }
-       }
-       bestoptionsvector.push_back(bestOptionN);
-       for (auto path: paths) {
-           nairlines.clear();
-           prov = airlinesChoiceMinimum(path, nairlines);
-           if (minimumsize == nairlines.size()) {
-               bestoptionsvector.push_back(prov);
-           }
-       }
-       sort(bestoptionsvector.begin(), bestoptionsvector.end(),
-            [](const auto &a, const auto &b) {
-                return a.size() < b.size();
-            });
-
-       bestoptionsvectorfinal=bestoptionsvector;
-       //-------------------------By default vamos apresentar o menor número de airlines-------------------------------------//
-
-   }
-       //-------------------------MINIMUM NUMBER OF DIFFERENT AIRLINES ----------------------------------------//
-   else if (minimumAirlines) {
-       vector<vector<tuple<string, string, string>>> bestoptionsvector;
-       vector<tuple<string, string, string>> bestOptionM;
-       vector<tuple<string, string, string>> prov;
-       set<string> nairlines;
-       int minimumsize;
-       auto a = paths.begin();
-       bestOptionM = airlinesChoiceMinimum(*paths.begin(), nairlines);
-       for (auto path: paths) {
-           nairlines.clear();
-           prov = airlinesChoiceMinimum(path, nairlines);
-           if (minimumsize > nairlines.size()) {
-               bestOptionM = prov;
-               minimumsize = nairlines.size();
-           }
-       }
-       bestoptionsvector.push_back(bestOptionM);
-       for (auto path: paths) {
-           nairlines.clear();
-           prov = airlinesChoiceMinimum(path, nairlines);
-           if (minimumsize == nairlines.size()) {
-               bestoptionsvector.push_back(prov);
-           }
-       }
-
-       //O VETOR ESTÁ ORGANIZADO PELO NÚMERO DE PARAGENS
-       sort(bestoptionsvector.begin(), bestoptionsvector.end(),
-            [](const auto &a, const auto &b) {
-                return a.size() < b.size();
-            });
-
-       bestoptionsvectorfinal=bestoptionsvector;
-       //VETOR FINAL ORDENADO
-   } else if (!airlinesPreference.empty()) {
-       vector<vector<tuple<string, string, string>>> bestoptionsvector;
-       vector<tuple<string, string, string>> bestOptionP;
-       vector<tuple<string, string, string>> prov;
-       set<string> nairlines;
-       bestOptionP = airlinesChoicePreference(*paths.begin(), nairlines, airlinesPreference);
-       int minimumsize = bestOptionP.size();
-       for (auto path: paths) {
-           prov = airlinesChoicePreference(path, nairlines, airlinesPreference);
-           if (minimumsize > prov.size()) {
-               bestOptionP = prov;
-               minimumsize = nairlines.size();
-           }
-       }
-       bestoptionsvector.push_back(bestOptionP);
-       for (auto path: paths) {
-           prov = airlinesChoicePreference(path, nairlines, airlinesPreference);
-           if (minimumsize == prov.size()) {
-               bestoptionsvector.push_back(prov);
-           }
-       }
-       //O VETOR ESTÁ ORGANIZADO PELO NÚMERO DE PARAGENS
-       sort(bestoptionsvector.begin(), bestoptionsvector.end(),
-            [](const auto &a, const auto &b) {
-                return a.size() < b.size();
-            });
-       bestoptionsvectorfinal=bestoptionsvector;
-   }
-   cout << "The best option of flight for you is:" << '\n';
-   for (auto path: bestoptionsvectorfinal) {
-       cout << "########################################################################" << '\n';
-       cout << "#          |       Departure       |        Arrival        |  Airline  #" << '\n';
-       int i = 1;
-       for (auto flight: path) {
-           cout << "#--------------------------------------------------------------------#" << '\n';
-           cout << "#  " << "Flight " << i << "| " << setw(21) << get<0>(flight) << " | " << setw(22) << get<1>(flight)<< "|" << setw(10) << get<2>(flight) << "#" << '\n';
-           i++;
-       }
-       cout << "######################################################################" << '\n';
-   }
-}
-
-set<string> Menu::airlinesAvailable( Vertex<Airport>* source, Vertex<Airport>* dest ) {
-   set<string> airlines;
-   for (auto it = source->getAdj().begin(); it != source->getAdj().end(); it++) {
-       if (it->getDest() == dest){
-           if(airlines.find(it->getAirline().getCode())==airlines.end()) {
-               airlines.insert(it->getAirline().getCode());
-           }
-       }
-   }
-   return airlines;
-}
-//-----------------------------vê a melhor escolha por path----------------//
-vector<tuple<string, string, string>>  Menu::airlinesChoiceMinimum(vector<Vertex<Airport>*> path, set<string> &nairlines ) {
-   set<string> airlines;
-   unordered_map<string, int> airlinesAvailableMap;
-
-   //----------- Calcula a quantidade de cada airline em todas as possibilidades para o path--------------//
-   for (auto i = 0; i < path.size() - 1; i++) {
-       auto source = path[i];
-       auto dest = path[i + 1];
-       auto provairlinesavai = airlinesAvailable(source, dest);
-
-       for (const auto& airline : provairlinesavai) {
-           if (airlinesAvailableMap.find(airline) == airlinesAvailableMap.end()) {
-               airlinesAvailableMap[airline] = 1;
-           }
-           else {
-               airlinesAvailableMap[airline]++;
-           }
-       }
-   }
-   //---------------------------------------------------------------------------------------------------//
-   //------------escolhe a melhor airline-------------------------//
-   vector<tuple<string, string, string>> flightsWAirline;
-   for (auto i = 0; i < path.size() - 1; i++) {
-       auto source = path[i];
-       auto dest = path[i + 1];
-       auto provairlinesavai = airlinesAvailable(source, dest);
-
-       struct CompareAirlines {
-           const unordered_map<string, int>& airlinesAvailableMap;
-
-           CompareAirlines(const unordered_map<string, int>& airlinesMap): airlinesAvailableMap(airlinesMap) {}
-
-           bool operator()(const string& lhs, const string& rhs) const {
-           return airlinesAvailableMap.at(lhs) < airlinesAvailableMap.at(rhs);
-           }
-       };
-
-       set<string, CompareAirlines> sortedAirlines(provairlinesavai.begin(), provairlinesavai.end(), CompareAirlines(airlinesAvailableMap));
-       string bestairline = *sortedAirlines.begin();
-       flightsWAirline.push_back(make_tuple(source->getInfo().getCode(), dest->getInfo().getCode(), bestairline));
-   }
-   return flightsWAirline;
-}
-vector<tuple<string, string, string>>  Menu::airlinesChoicePreference(vector<Vertex<Airport>*> path, set<string> &nairlines ,set<string> airlinesPreference) {
-   set<string> airlines;
-   unordered_map<string, int> airlinesAvailableMap;
-
-   // Calcula a quantidade de cada airline em todas as possibilidades para o path
-   for (auto i = 0; i < path.size() - 1; i++) {
-       auto source = path[i];
-       auto dest = path[i + 1];
-       auto provairlinesavai = airlinesAvailable(source, dest);
-
-       for (const auto &airline: provairlinesavai) {
-           if (airlinesAvailableMap.find(airline) == airlinesAvailableMap.end()) {
-               airlinesAvailableMap[airline] = 1;
-           } else {
-               airlinesAvailableMap[airline]++;
-           }
-       }
-   }
-   vector<tuple<string, string, string>> flightsWAirlin;
-   for (auto i = 0; i < path.size() - 1; i++) {
-       auto source = path[i];
-       auto dest = path[i + 1];
-       auto provairlinesavai = airlinesAvailable(source, dest);
-       unordered_map<string, int> airlinesPreferenceMap;
-       set<string> airlinesPreferenceAvai;
-       for (auto it = airlinesAvailableMap.begin(); it != airlinesAvailableMap.end(); it++) {
-           if (airlinesPreference.find(it->first) != airlinesPreference.end()) {
-               airlinesPreferenceAvai.insert(it->first);
-               airlinesPreferenceMap[it->first] = it->second;
-           }
-       }
-       struct CompareAirlinesPreference {
-           const unordered_map<string, int> &airlinesPreferenceMap;
-
-           CompareAirlinesPreference(const unordered_map<string, int> &airlinesMap) : airlinesPreferenceMap(
-                   airlinesMap) {}
-
-           bool operator()(const string &lhs, const string &rhs) const {
-               return airlinesPreferenceMap.at(lhs) < airlinesPreferenceMap.at(rhs);
-           }
-       };
-       set<string, CompareAirlinesPreference> sortedPreferenceAirlines(airlinesPreferenceAvai.begin(),
-                                                                       airlinesPreferenceAvai.end(),
-                                                                       CompareAirlinesPreference(
-                                                                               airlinesPreferenceMap));
-       vector<string> SortedAirlines;
-       for (auto p: sortedPreferenceAirlines) {
-           SortedAirlines.push_back(p);
-       }
-       unordered_map<string, int> airlinesAvaiWOP;
-       set<string> airlinesAvai;
-       for (auto it = airlinesAvailableMap.begin(); it != airlinesAvailableMap.end(); it++) {
-           if (airlinesPreference.find(it->first) == airlinesPreference.end()) {
-               airlinesAvaiWOP[it->first] = it->second;
-               airlinesAvai.insert(it->first);
-
-           }
-       }
-       struct CompareAirline {
-           const unordered_map<string, int> &airlinesAvaiWOP;
-
-           CompareAirline(const unordered_map<string, int> &airlinesMap) : airlinesAvaiWOP(airlinesMap) {}
-
-           bool operator()(const string &lhs, const string &rhs) const {
-               return airlinesAvaiWOP.at(lhs) < airlinesAvaiWOP.at(rhs);
-           }
-       };
-       set<string, CompareAirline> sortedAirlinesAvai(airlinesAvai.begin(), airlinesAvai.end(),
-                                                      CompareAirline(airlinesAvaiWOP));
-       for (auto a: sortedAirlinesAvai) {
-           SortedAirlines.push_back(a);
-       }
-       auto bestairline = *SortedAirlines.begin();
-       flightsWAirlin.push_back(make_tuple(source->getInfo().getCode(), dest->getInfo().getCode(), bestairline));
-   }
-   return flightsWAirlin;
-}*/
